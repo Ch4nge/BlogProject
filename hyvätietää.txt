@@ -1,0 +1,11 @@
+
+git checkout devel
+
+uusi branch
+git branch "nimi"
+
+git add --all
+
+git commit
+
+create react-app
