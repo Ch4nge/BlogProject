@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "blog-post")
+@Table(name = "blogs")
 public class BlogPost {
     @Id @GeneratedValue
     private long id;
@@ -14,6 +14,15 @@ public class BlogPost {
     private String title;
 
     private String content;
+
+    public BlogPost(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public BlogPost() {
+
+    }
 
     public long getId() {
         return id;
