@@ -1,5 +1,56 @@
+* {
+  box-sizing: border-box;
+}
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+  font-family: Arial;
+  padding: 20px;
+  background: #f1f1f1;
+}
+
+.header {
+  padding: 30px;
+  font-size: 40px;
+  text-align: center;
+  background: white;
+}
+
+.leftColumn {
+  float: left;
+  width: 75%;
+  height: 1000px;
+  background: #ff0000
+}
+
+.rightColumn {
+  float: left;
+  width: 25%;
+  height: 1000px;
+  padding-left: 20px;
+  background: #00ff00
+}
+
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+  margin-top: 20px;
+}
+.card {
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Make columns responsive */
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {   
+      width: 100%;
+      padding: 0;
+  }
 }
