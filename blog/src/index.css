@@ -16,17 +16,14 @@ body {
 
 .leftColumn {
   float: left;
+  height: 100px;
   width: 75%;
-  height: 1000px;
-  background: #ff0000
 }
 
 .rightColumn {
   float: left;
   width: 25%;
-  height: 1000px;
   padding-left: 20px;
-  background: #00ff00
 }
 
 .footer {
@@ -49,7 +46,7 @@ body {
 
 /* Make columns responsive */
 @media screen and (max-width: 800px) {
-  .leftcolumn, .rightcolumn {   
+  .leftColumn, .rightColumn {   
       width: 100%;
       padding: 0;
   }
