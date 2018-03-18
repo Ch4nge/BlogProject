@@ -3,6 +3,7 @@ import About from '../rightcolumn/About';
 import Popular from '../rightcolumn/Popular';
 import Tags from '../rightcolumn/Tags';
 import Article from '../articles/Article';
+import ArticlesWrapper from '../articles/ArticlesWrapper';
 
 export default class MainLayout extends Component {
 
@@ -14,8 +15,7 @@ export default class MainLayout extends Component {
                 </div>
                 <div className="container">
                     <div className="leftColumn">
-                        <Article />
-                        <Article />
+                        <ArticlesWrapper />
                     </div>
                     <div className="rightColumn">
                         <About />
