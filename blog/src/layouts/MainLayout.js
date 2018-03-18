@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import About from '../rightcolumn/About';
-
+import Popular from '../rightcolumn/Popular';
+import Tags from '../rightcolumn/Tags';
 
 export default class MainLayout extends Component {
 
@@ -16,6 +17,8 @@ export default class MainLayout extends Component {
                     </div>
                     <div className="rightColumn">
                         <About />
+                        <Popular />
+                        <Tags />
                     </div>
                 </div>
 
