@@ -19,6 +19,7 @@ public class BlogRestInterface {
     @Autowired
     BlogPostRepository postRepository;
 
+    @CrossOrigin
     @RequestMapping(value = "/blogs", method= RequestMethod.POST)
     public ResponseEntity<Void> addBlogPost(@RequestBody BlogPost bPost, UriComponentsBuilder builder){
         postRepository.save(bPost);
@@ -31,17 +32,20 @@ public class BlogRestInterface {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/blogs", method = RequestMethod.GET)
     public Iterable<BlogPost> getBlogs(){
         return postRepository.findAll();
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/blogs/{blogID}", method = RequestMethod.GET)
     public BlogPost getBlogPost(@PathVariable long blogID){
         BlogPost bPost = postRepository.findById(blogID).orElse(null);
         return bPost;
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/blogs/{blogID}", method = RequestMethod.DELETE)
     public void deleteBlogPost(@PathVariable long blogID){
         postRepository.deleteById(blogID);
