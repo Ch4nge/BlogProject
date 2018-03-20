@@ -52,7 +52,6 @@ export default class ArticlesWrapper extends Component {
             this.state.activeArticles.slice(0).reverse().map(  (article) => 
                 this.renderArticle(article)
         );
-        console.log(this.state.articles.length);
         return(
             <LimitedInfiniteScroll 
                 limit={1} 
