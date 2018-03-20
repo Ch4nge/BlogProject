@@ -13,15 +13,25 @@ public class BlogPost {
 
     private String title;
 
+    private String description;
+
     private String content;
 
-    public BlogPost(String title, String content) {
+    public BlogPost(String title, String content, String description) {
         this.title = title;
         this.content = content;
+        this.description = description;
     }
 
     public BlogPost() {
 
+    }
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public long getId() {
