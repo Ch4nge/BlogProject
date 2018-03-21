@@ -81,6 +81,7 @@ body {
   font-size:12px;
 }
 
+
 /* Make columns responsive */
 @media screen and (max-width: 1000px) {
   .leftColumn, .rightColumn {   

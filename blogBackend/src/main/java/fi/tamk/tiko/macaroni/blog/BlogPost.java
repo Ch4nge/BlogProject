@@ -1,9 +1,6 @@
 package fi.tamk.tiko.macaroni.blog;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "blogs")
@@ -15,6 +12,8 @@ public class BlogPost {
 
     private String description;
 
+    @Column(columnDefinition="clob")
+    @Lob
     private String content;
 
     public BlogPost(String title, String content, String description) {
