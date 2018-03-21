@@ -12,7 +12,7 @@ class App extends Component {
       <div className="App">
         <Switch>
           <Route exact={true} path="/" component={() => <MainLayout content={<ArticlesWrapper />} />} />
-          <Route path={"/post/:postID"} render={() => <MainLayout content={<FullArticle />} /> } />
+          <Route path={"/post/:postID"} render={(props) => <MainLayout content={<FullArticle {...props} />} /> } />
         </Switch>
       </div>
     );
