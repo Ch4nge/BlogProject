@@ -1,9 +1,10 @@
 package fi.tamk.tiko.macaroni.blog;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "blogs")
@@ -15,6 +16,12 @@ public class BlogPost {
 
     private String description;
 
+    @Column(name = "DATETIME_FIELD", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp dateTimeField;
+
+
+    @Column(columnDefinition="clob")
+    @Lob
     private String content;
 
     public BlogPost(String title, String content, String description) {
@@ -58,6 +65,11 @@ public class BlogPost {
         this.content = content;
     }
 
+    public Timestamp getDateTimeField() {
+        return dateTimeField;
+    }
 
-
+    public void setDateTimeField(Timestamp dateTimeField) {
+        this.dateTimeField = dateTimeField;
+    }
 }

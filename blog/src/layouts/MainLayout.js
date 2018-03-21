@@ -4,10 +4,18 @@ import Popular from '../rightcolumn/Popular';
 import Tags from '../rightcolumn/Tags';
 import Article from '../articles/Article';
 import ArticlesWrapper from '../articles/ArticlesWrapper';
+import FullArticle from '../articles/FullArticle';
+import { Route } from 'react-router-dom';
 
 export default class MainLayout extends Component {
 
+    constructor(props){
+        super(props);
+    }
+
+
     render(){
+        console.log(this.props);
         return(
             <div className="siteWrapper">
                 <div className="header">
@@ -15,7 +23,7 @@ export default class MainLayout extends Component {
                 </div>
                 <div className="container">
                     <div className="leftColumn">
-                        <ArticlesWrapper />
+                        {this.props.content}
                     </div>
                     <div className="rightColumn">
                         <About />
