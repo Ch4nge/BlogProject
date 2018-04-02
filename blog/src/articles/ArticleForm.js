@@ -18,7 +18,6 @@ export default class ArticleForm extends Component {
 
     postArticle(event) {
 
-
         fetch("http://localhost:8080/blogs", {
             body: JSON.stringify({
                 title: this.state.title, 
