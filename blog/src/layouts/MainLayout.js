@@ -2,10 +2,6 @@ import React, {Component} from 'react';
 import About from '../rightcolumn/About';
 import Popular from '../rightcolumn/Popular';
 import Tags from '../rightcolumn/Tags';
-import Article from '../articles/Article';
-import ArticlesWrapper from '../articles/ArticlesWrapper';
-import FullArticle from '../articles/FullArticle';
-import { Route } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 export default class MainLayout extends Component {
 

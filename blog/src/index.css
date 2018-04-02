@@ -80,7 +80,9 @@ body {
   text-align: center;
   font-size:12px;
 }
-
+#commentCard{
+  background-color: #CCCCCC
+}
 
 /* Make columns responsive */
 @media screen and (max-width: 1000px) {

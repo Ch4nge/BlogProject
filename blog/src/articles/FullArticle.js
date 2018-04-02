@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import Comment from '../comments/Comment';
+import CommentForm from '../comments/CommentForm';
+
 
 export default class FullArticle extends Component {
 
@@ -29,7 +32,12 @@ export default class FullArticle extends Component {
 
     render(){
         console.log(this.props);
+        let comment = {
+            username: "sami",
+            content: "kontenttia"
+        }
         return(
+            <div>
             <div className="card">
                 <div className="articleHeaader">
                     <h3>{this.state.article.title}</h3>
@@ -40,6 +48,13 @@ export default class FullArticle extends Component {
                         {this.state.article.content}
                     </p>
                 </div>
+            </div>
+            <div className="card" id="commentCard">
+                <h4>Comments</h4>
+                <Comment comment={comment}/>
+                <Comment comment={comment}/>
+                <CommentForm />
+            </div>
             </div>
         );
         
