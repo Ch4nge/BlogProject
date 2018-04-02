@@ -13,8 +13,10 @@ export default class FullArticle extends Component {
                 title: "..",
                 description: "",
                 content: ""
-            }
+            },
+            comments: []
         }
+        this.fetchPosts = this.fetchPosts.bind(this);
     }
     
     componentWillMount(){
@@ -22,20 +24,26 @@ export default class FullArticle extends Component {
             .then(response => response.json())
             .then(response => {
                 this.setState({
-                    article: response
+                    article: response,
+                    comments: []
                 });
-                console.log(response);
             });
+        this.fetchPosts();
     }
     
-
+    fetchPosts(){
+        fetch('http://127.0.0.1:8080/blogs/'+this.props.match.params.postID+"/comments")
+        .then(response => response.json())
+        .then(response => {
+            this.setState({
+                comments: response
+            });
+        });
+    }
 
     render(){
-        console.log(this.props);
-        let comment = {
-            username: "sami",
-            content: "kontenttia"
-        }
+        let comments = this.state.comments;
+        console.log(comments);
         return(
             <div>
             <div className="card">
@@ -51,9 +59,10 @@ export default class FullArticle extends Component {
             </div>
             <div className="card" id="commentCard">
                 <h4>Comments</h4>
-                <Comment comment={comment}/>
-                <Comment comment={comment}/>
-                <CommentForm />
+                {comments.map((comment) =>{
+                    return <Comment key={comment.id} comment={comment} />
+                })}
+                <CommentForm blogID={this.props.match.params.postID} fetchPosts={this.fetchPosts}/>
             </div>
             </div>
         );

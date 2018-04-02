@@ -6,7 +6,7 @@ export default class CommentForm extends Component {
         super(props);
         this.state = ({
             content: "",
-            username: ""
+            username: "Käyttäjä"
         });
         this.postComment = this.postComment.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -17,9 +17,10 @@ export default class CommentForm extends Component {
     }
 
     postComment(event) {
+        event.preventDefault();
         fetch("http://localhost:8080/blogs/"+this.props.blogID+"/comments", {
             body: JSON.stringify({
-                username: this.state.username, 
+                userName: this.state.username, 
                 content: this.state.content
             }),
             headers: {
@@ -27,8 +28,15 @@ export default class CommentForm extends Component {
             },
             method: "POST"
           })
-          .then((res) => console.log(res))
-          .then((res) => console.log(res));
+        .then((res) => console.log(res))
+        .then((res) => {
+            console.log(res)
+            this.props.fetchPosts();
+        });
+        this.refs.content.value = "";
+        this.setState({
+            content: ""
+        })
     }
     
     render() {
@@ -36,9 +44,9 @@ export default class CommentForm extends Component {
             <form>
                 Content:<br/>
                 <textarea rows="5" cols="60" 
-                name="content"
-                ref="content" 
-                onChange={this.handleChange}/><br/>
+                    name="content"
+                    ref="content" 
+                    onChange={this.handleChange}/><br/>
                 <button onClick={this.postComment}>Post</button><br/>
             </form>
         )
