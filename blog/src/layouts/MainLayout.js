@@ -6,7 +6,7 @@ import Article from '../articles/Article';
 import ArticlesWrapper from '../articles/ArticlesWrapper';
 import FullArticle from '../articles/FullArticle';
 import { Route } from 'react-router-dom';
-
+import {Link} from 'react-router-dom';
 export default class MainLayout extends Component {
 
     constructor(props){
@@ -26,6 +26,8 @@ export default class MainLayout extends Component {
                         {this.props.content}
                     </div>
                     <div className="rightColumn">
+                        <Link to="/articleForm"><button>Add Article</button> </Link>
+                        
                         <About />
                         <Popular />
                         <Tags />
