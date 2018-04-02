@@ -45,25 +45,24 @@ export default class FullArticle extends Component {
         let comments = this.state.comments;
         console.log(comments);
         return(
-            <div>
             <div className="card">
-                <div className="articleHeaader">
-                    <h3>{this.state.article.title}</h3>
-                    <h5>{this.state.article.description} , <span className="articleDate">18.3.2018</span></h5>
-                </div>
+            
+            <div className="articleCard">
+            <span className="articleTitle">{this.state.article.title}</span>
+                    
                 <div className="articleContent">
                     <p>
                         {this.state.article.content}
                     </p>
                 </div>
+                <h5>{this.state.article.description} , <span className="articleDate">18.3.2018</span></h5>
             </div>
-            <div className="card" id="commentCard">
+            
                 <h4>Comments</h4>
                 {comments.map((comment) =>{
                     return <Comment key={comment.id} comment={comment} />
                 })}
                 <CommentForm blogID={this.props.match.params.postID} fetchPosts={this.fetchPosts}/>
-            </div>
             </div>
         );
         

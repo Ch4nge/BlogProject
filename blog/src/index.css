@@ -1,6 +1,8 @@
 * {
   box-sizing: border-box;
 }
+
+
 body {
   font-family: Arial;
   padding: 20px;
@@ -8,10 +10,14 @@ body {
 }
 
 .header {
-  padding: 30px;
-  font-size: 40px;
+  color: #6cb4e4;
   text-align: center;
-  background: white;
+  font-size: 30px;
+  padding: 0.25em;
+  border-top: solid 2px #6cb4e4;
+  border-bottom: solid 2px #6cb4e4;
+  background: -webkit-repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px,#e9f4ff 3px, #e9f4ff 7px);
+  background: repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px,#e9f4ff 3px, #e9f4ff 7px);
 }
 
 .leftColumn {
@@ -38,11 +44,33 @@ body {
   box-shadow: 0 2px 5px 0 #888888;
   
 }
- 
+
+.articleCard{
+  padding: 0.5em 1em;
+  margin-top: 20px;
+  color: #5d627b;
+  background: rgb(239, 248, 248);
+  border-top: solid 7px #5596f0;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+}
+.articleCard p {
+  margin: 0; 
+  padding: 0;
+}
+
+.articleCard .articleTitle {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.articleContent {
+  margin-top: 10px;
+}
+
 .commentCard {
   position: relative;
   margin: 2em 0;
-  padding: 0.5em 1em;
+  padding: 1em 1em;
   border: solid 3px #95ccff;
   border-radius: 8px;
 }
@@ -53,7 +81,7 @@ body {
   left: 10px;
   padding: 0 9px;
   line-height: 1;
-  font-size: 19px;
+  font-size: 18px;
   background: #FFF;
   color: #4676a4;
   font-weight: bold;
@@ -63,7 +91,7 @@ body {
   background: #FFF;
   font-size: 11px;
   padding: 0 5px;
-  margin: 3px;
+  margin: 9px;
   color:  #4676a4;
 }
 .commentCard p {

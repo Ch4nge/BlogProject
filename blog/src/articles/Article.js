@@ -6,7 +6,8 @@ export default class Article extends Component {
     render(){
         console.log(this.props.article);
         return(
-            <div className="card">
+            <div className="articleCard">
+
                 <div className="articleHeaader">
                     <h3>{this.props.article.title}</h3>
                     <h5>{this.props.article.description}, <span className="articleDate">18.3.2018</span></h5>
@@ -17,6 +18,7 @@ export default class Article extends Component {
                     </p>
                 </div>
                 <Link to={{pathname: "/post/"+this.props.article.id, state: {article: "this.props.article"} }}><button>Read more</button></Link>
+                
             </div>
         );
         
