@@ -19,6 +19,9 @@ public class BlogRestInterface {
     @Autowired
     BlogPostRepository postRepository;
 
+    @Autowired
+    BlogCommentRepository commentRepository;
+
     @CrossOrigin
     @RequestMapping(value = "/blogs", method= RequestMethod.POST)
     public ResponseEntity<Void> addBlogPost(@RequestBody BlogPost bPost, UriComponentsBuilder builder){
@@ -51,6 +54,37 @@ public class BlogRestInterface {
         postRepository.deleteById(blogID);
     }
 
+    //|||!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!|||
+    //VVV!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!VVV
+
+    @CrossOrigin
+    @RequestMapping(value = "/blogs/{blogID}/comments", method= RequestMethod.POST)
+    public ResponseEntity<Void> addBlogComment(
+            @RequestBody BlogComment blogComment,
+            UriComponentsBuilder builder,
+            @PathVariable long blogID
+            ){
+        blogComment.setBlogpostid(blogID);
+        commentRepository.save(blogComment);
+
+        UriComponents uriComponents =
+                builder.path("blogs/{blogID}/comments").buildAndExpand(blogComment.getId());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(uriComponents.toUri());
+
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
 
 
+    @CrossOrigin
+    @RequestMapping(value = "/blogs/{blogID}/comments", method = RequestMethod.GET)
+    public Iterable<BlogComment> getBlogComments(@PathVariable long blogID){
+        return commentRepository.findByBlogpostid(blogID);
+    }
+
+    /*@CrossOrigin
+    @RequestMapping(value = "/blogs/blogID/comments/{commentID}", method = RequestMethod.DELETE)
+    public void deleteBlogComment(@PathVariable long commentID){
+        postRepository.deleteById(commentID);
+    }*/
 }
