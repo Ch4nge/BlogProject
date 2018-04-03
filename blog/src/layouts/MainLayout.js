@@ -14,9 +14,15 @@ export default class MainLayout extends Component {
         console.log(this.props);
         return(
             <div className="siteWrapper">
-                <div className="header">
-                    <h1>My blog</h1>
+            <div class="header">
+                <div class="sides">
                 </div>
+                <div class="info">
+                <h4><a href="#category">UI DESIGN</a></h4>
+                <h1>HUIKEE BLOGI</h1>
+                
+                </div>
+            </div>
                 <div className="container">
                     <div className="leftColumn">
                         {this.props.content}
