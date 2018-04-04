@@ -15,6 +15,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "react-limited-infinite-scroll": "^2.0.4"
+    "react-limited-infinite-scroll": "^2.0.4",
+    "string-contains": "^0.1.0"
   }
 }

@@ -1,19 +1,20 @@
 import React, {Component} from 'react';
 import Article from './Article';
 import LimitedInfiniteScroll from 'react-limited-infinite-scroll'
-
-
+import contains from 'string-contains'
 export default class ArticlesWrapper extends Component {
 
     constructor(props){
         super(props);
         this.state = {
+            search:"",
             activeArticles: [],
             articles: [],
             totalArticles: 8
         }
         this.componentWillMount = this.componentWillMount.bind(this);
         this.renderArticle = this.renderArticle.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentWillMount(){
@@ -27,7 +28,13 @@ export default class ArticlesWrapper extends Component {
 
     renderArticle(article){
         if(this.state.activeArticles.length > 0){
-            return <Article key={article.id} article={article} />
+
+            if(this.state.search.trim() == "") {
+                return <Article key={article.id} article={article} />
+            } else if(contains(article.title,this.state.search)) {
+                return <Article key={article.id} article={article} />
+            } 
+
         }
         else {
             return <p>Loading..</p>
@@ -46,13 +53,25 @@ export default class ArticlesWrapper extends Component {
         });
     }
 
+    handleChange(event) {
+        this.setState({[event.target.name]: event.target.value});
+    }
+
     render(){
         
         let articleList = 
             this.state.activeArticles.slice(0).reverse().map(  (article) => 
                 this.renderArticle(article)
         );
+        console.log(this.state.search);
         return(
+            <div>
+            <input type="text" 
+            name="search" 
+            ref="search"
+            placeholder="Search"
+            onChange={this.handleChange}/>
+
             <LimitedInfiniteScroll 
                 limit={1} 
                 hasMore={articleList.length < this.state.articles.length}
@@ -63,6 +82,7 @@ export default class ArticlesWrapper extends Component {
                 threshold={0}>
                     {articleList}
             </LimitedInfiniteScroll>
+            </div>
         );
         
     }

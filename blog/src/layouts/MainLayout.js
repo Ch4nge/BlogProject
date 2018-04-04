@@ -3,6 +3,7 @@ import About from '../rightcolumn/About';
 import Popular from '../rightcolumn/Popular';
 import Tags from '../rightcolumn/Tags';
 import {Link} from 'react-router-dom';
+import ArticleFilter from '../articles/ArticleFilter'
 export default class MainLayout extends Component {
 
     constructor(props){
@@ -14,11 +15,11 @@ export default class MainLayout extends Component {
         console.log(this.props);
         return(
             <div className="siteWrapper">
-            <div class="header">
-                <div class="sides">
+            <div className="header">
+                <div className="sides">
                 </div>
-                <div class="info">
-                <h4><a href="#category">UI DESIGN</a></h4>
+                <div className="info">
+                <h4><a href="#category">on tää kyll</a></h4>
                 <h1>HUIKEE BLOGI</h1>
                 
                 </div>
