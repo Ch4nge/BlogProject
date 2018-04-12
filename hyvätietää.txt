@@ -13,6 +13,6 @@ create react-app
 blog post:
 curl -H "Content-Type: application/json" -X "POST" -d "{\"title\":\"titteli\",\"description\":\"ebin\",\"content\":\"moi\"}" localhost:8080/blogs
 
-comments:
+comments:667776565
 curl -H "Content-Type: application/json" -X "POST" -d 
 "{\"content\":\"Onnistuuko??\", \"blogpostid\":1}" localhost:8080/blogs/1/comments
