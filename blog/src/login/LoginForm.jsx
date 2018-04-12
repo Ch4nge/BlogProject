@@ -20,9 +20,10 @@ export default class LoginForm extends Component {
     login(event){
         event.preventDefault();
         let data = {
-            username: this.props.username,
-            password: this.props.password
+            username: this.state.username,
+            password: this.state.password
         }
+        console.log(data);
         this.props.login(data);
 
     }

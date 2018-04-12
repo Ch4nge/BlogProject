@@ -4,32 +4,23 @@ import Popular from '../rightcolumn/Popular';
 import Tags from '../rightcolumn/Tags';
 import LoginForm from '../login/LoginForm';
 import {Link} from 'react-router-dom';
-import ArticleFilter from '../articles/ArticleFilter'
+import ArticleFilter from '../articles/ArticleFilter';
 
 
 export default class MainLayout extends Component {
 
     constructor(props){
         super(props);
-        this.state = {
-            username: "",
-            password: "",
-            loggedIn: false
-        }
+        
+        this.renderLogin = this.renderLogin.bind(this);
     }
 
-    login(data){
-        fetch("http://localhost:8080/user/login", {
-            body: JSON.stringify({
-                loginAttempt: data
-            }),
-            headers: {
-              "Content-Type": "application/json"
-            },
-            method: "POST"
-          })
-          .then((res) => console.log(res))
-          .then((res) => console.log(res));
+    renderLogin(){
+        if(this.props.userdata.loggedIn){
+            return <button onClick={this.props.logOut}>logout</button>;
+        }else{
+            return <LoginForm login={this.props.login}/>;
+        }
     }
 
 
@@ -46,7 +37,7 @@ export default class MainLayout extends Component {
                     </div>
                 </div>
                 <div className="container">
-                    <LoginForm login={this.login}/>
+                    {this.renderLogin()}
                     <div className="leftColumn">
                         {this.props.content}
                     </div>
