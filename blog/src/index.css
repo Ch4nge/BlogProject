@@ -7,7 +7,7 @@
 body {
   font-family: Arial;
   padding: 20px;
-  background: #f4fbff;
+  background: rgba(27,32,48,1);
 }
 
 .header{
@@ -45,7 +45,7 @@ body {
     -webkit-backface-visibility: hidden;
     -webkit-transform: translateZ(0) scale(1.0, 1.0);
     transform: translateZ(0);
-  background:#1B2030 url(http://www.beachsun.org/gulfzen/wp-content/uploads/2016/11/sky-1024x640.jpg) top center no-repeat;
+  background:#1B2030 url(http://www.tastybytes.co.nz/wp-content/uploads/2015/03/rail-line.jpg) top center no-repeat;
   background-size:cover;
   background-attachment:fixed;
   animation: grow 60s  linear 10ms infinite;
@@ -91,12 +91,16 @@ body {
 
 .footer {
   padding: 20px;
+  margin: 20px -0px -30px 0px;
   text-align: center;
-  background: #ddd;
-  margin-top: 20px;
+  background: rgb(23, 28, 31);
+  width: 100%;
 }
+
+
+
 .card {
-  background-color: white;
+  background-color: rgb(196, 189, 187);
   padding: 20px;
   margin-top: 20px;
   box-shadow: 0 2px 5px 0 #888888;
@@ -108,7 +112,7 @@ body {
   margin-top: 20px;
   color: #5d627b;
   background: rgb(239, 248, 248);
-  border-top: solid 7px #5596f0;
+  border-top: solid 7px #8b8797;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
 }
 .articleCard p {
