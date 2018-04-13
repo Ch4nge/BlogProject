@@ -22,6 +22,9 @@ public class BlogRestInterface {
     @Autowired
     BlogCommentRepository commentRepository;
 
+    @Autowired
+    MemberRepository memberRepository;
+
     @CrossOrigin
     @RequestMapping(value = "/blogs", method= RequestMethod.POST)
     public ResponseEntity<Void> addBlogPost(@RequestBody BlogPost bPost, UriComponentsBuilder builder){
@@ -54,8 +57,7 @@ public class BlogRestInterface {
         postRepository.deleteById(blogID);
     }
 
-    //|||!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!|||
-    //VVV!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!VVV
+    //COMMENTS
 
     @CrossOrigin
     @RequestMapping(value = "/blogs/{blogID}/comments", method= RequestMethod.POST)
@@ -87,4 +89,38 @@ public class BlogRestInterface {
     public void deleteBlogComment(@PathVariable long commentID){
         postRepository.deleteById(commentID);
     }*/
+
+
+    //USERS
+    @CrossOrigin
+    @RequestMapping(value = "/users")
+    public Iterable<Member> getMembers(){
+        return memberRepository.findAll();
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/users", method= RequestMethod.POST)
+    public ResponseEntity<Void> addMember(@RequestBody Member member, UriComponentsBuilder builder){
+        memberRepository.save(member);
+
+        UriComponents uriComponents =
+                builder.path("blogs/{id}").buildAndExpand(member.getId());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(uriComponents.toUri());
+
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/users/{memberID}", method = RequestMethod.GET)
+    public Member getMember(@PathVariable long memberID){
+        Member member = memberRepository.findById(memberID).orElse(null);
+        return member;
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/users/{memberID}", method = RequestMethod.DELETE)
+    public void deleteMember(@PathVariable long memberID){
+        memberRepository.deleteById(memberID);
+    }
 }
