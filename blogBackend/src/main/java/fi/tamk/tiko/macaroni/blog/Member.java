@@ -1,10 +1,7 @@
 package fi.tamk.tiko.macaroni.blog;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="member")
@@ -13,6 +10,7 @@ public class Member {
     @Id @GeneratedValue
     private long id;
 
+    @Column(unique = true)
     private String username;
 
     private String password;
@@ -20,9 +18,10 @@ public class Member {
     private String role;
 
 
-    public Member(String username, String password) {
+    public Member(String username, String password, String role) {
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
     public Member() {
@@ -50,5 +49,13 @@ public class Member {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

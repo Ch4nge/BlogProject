@@ -123,4 +123,12 @@ public class BlogRestInterface {
     public void deleteMember(@PathVariable long memberID){
         memberRepository.deleteById(memberID);
     }
+
+    @CrossOrigin
+    @RequestMapping(value = "/users/login", method = RequestMethod.POST)
+    public Member login(@RequestBody LoginAttempt loginAttempt){
+        Member member =
+                memberRepository.findByUsernameAndPassword(loginAttempt.getUsername(),loginAttempt.getPassword());
+        return member;
+    }
 }
