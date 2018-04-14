@@ -25,7 +25,6 @@ export default class LoginForm extends Component {
         }
         console.log(data);
         this.props.login(data);
-
     }
 
     render(){
@@ -38,7 +37,7 @@ export default class LoginForm extends Component {
                 </div>
 
                 <div className="signUpBtn">
-                    <a href="/users">Sign up</a>
+                    <Link to="/signup"><p>Sign up</p> </Link>
                 </div>
             </div>
         );

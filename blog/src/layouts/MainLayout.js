@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import About from '../rightcolumn/About';
 import Popular from '../rightcolumn/Popular';
 import Tags from '../rightcolumn/Tags';
-import LoginForm from '../login/LoginForm';
+import LoginForm from '../login/LoginForm.js';
 import {Link} from 'react-router-dom';
 import ArticleFilter from '../articles/ArticleFilter';
 

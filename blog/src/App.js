@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import MainLayout from './layouts/MainLayout';
 import ArticlesWrapper from './articles/ArticlesWrapper';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import FullArticle from './articles/FullArticle';
 import ArticleForm from './articles/ArticleForm';
+import SignUpPage from './login/SignUpPage';
+
 
 class App extends Component {
 
@@ -15,52 +17,91 @@ class App extends Component {
         username: "",
         role: "",
         loggedIn: false
-      }
+      },
+      redirect: false
     }
     this.login = this.login.bind(this);
     this.logOut = this.logOut.bind(this);
+    this.signUp = this.signUp.bind(this);
   }
 
   login(data){
-    console.log(data);
     fetch("http://localhost:8080/users/login", {
         body: JSON.stringify({
             username: data.username,
-            password: data.password
+            password: data.password,
+            role: data.role
         }),
         headers: {
           "Content-Type": "application/json"
         },
         method: "POST"
     })
-    .then((res) => res.json())
+    .then((res) => {
+      if(res.status === 200){
+        return res.json()
+      }       
+    })
     .then((res) =>{
+      if(res !== undefined){
         this.setState({
           userdata: {
             username: res.username,
             role: res.role,
             loggedIn: true
-          }
-        })
-        console.log(res);
-    });
-}
-
-logOut(event){
-    event.preventDefault();
-    this.setState({
-        userdata: {
-          username: "",
-          role: "",
-          loggedIn: false
         }
-    })
-}
+        })
+      }
+    });
+  }
 
+  logOut(event){
+      event.preventDefault();
+      this.setState({
+          userdata: {
+            username: "",
+            role: "",
+            loggedIn: false
+          },
+          redirect: false
+      })
+  }
+
+  signUp(data){
+    fetch("http://localhost:8080/users", {
+        body: JSON.stringify({
+            username: data.username,
+            password: data.password,
+            role: data.role
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "POST"
+    })
+    .then((res) => {
+      if(res.status === 201){
+        this.login(data);
+        this.setState({
+          redirect: true
+        });
+      }
+    })
+  }
+
+  redirect(){
+    if(this.state.redirect){
+      this.setState({
+        redirect: false
+      })
+      return <Redirect to="/" />
+    }
+  }
 
   render() {
     return (
       <div className="App">
+        {this.redirect()}
         <Switch>
           <Route path="/articleForm" render={() => 
             <MainLayout login={this.login} logOut={this.logOut} userdata={this.state.userdata} content={<ArticleForm/>}/>}/>
@@ -68,6 +109,8 @@ logOut(event){
             <MainLayout login={this.login} logOut={this.logOut} userdata={this.state.userdata} content={<ArticlesWrapper />} />} />
           <Route path={"/post/:postID"} render={(props) => 
             <MainLayout login={this.login} logOut={this.logOut} userdata={this.state.userdata} content={<FullArticle {...props} />} /> } />
+          <Route path={"/signup"} render={(props) => 
+            <MainLayout login={this.login} logOut={this.logOut} userdata={this.state.userdata} content={<SignUpPage signUp={this.signUp}/>} /> } />
         </Switch>
       </div>
     );
