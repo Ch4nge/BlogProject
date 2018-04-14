@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "likes",uniqueConstraints={@UniqueConstraint(columnNames = {"COMMENT_ID" , "memberId"})})
 public class BlogLike {
-    @Id @GeneratedValue(strategy = GenerationType.TABLE)
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
     private long memberId;
