@@ -2,6 +2,7 @@ package fi.tamk.tiko.macaroni.blog;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by possumunnki on 2.4.2018.
@@ -16,6 +17,9 @@ public class BlogComment {
 
     @Column(name = "DATETIME_FIELD", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp dateTimeField;
+
+    @OneToMany(mappedBy = "blogComment")
+    private List<BlogLike> blogLikes;
 
     @Column(columnDefinition="clob")
     @Lob
@@ -32,6 +36,12 @@ public class BlogComment {
         this.content = content;
     }
 
+    public void addBlogLike(BlogLike blogLike) {
+        this.blogLikes.add(blogLike);
+        if(blogLike.getBlogComment() != this) {
+            blogLike.setBlogComment(this);
+        }
+    }
 
     public String getUserName() {
         return userName;

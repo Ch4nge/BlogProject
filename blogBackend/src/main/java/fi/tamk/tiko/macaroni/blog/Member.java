@@ -9,6 +9,7 @@ public class Member {
 
     @Id @GeneratedValue
     private long id;
+    private long commentid;
 
     @Column(unique = true)
     private String username;
