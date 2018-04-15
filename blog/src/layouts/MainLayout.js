@@ -13,14 +13,20 @@ export default class MainLayout extends Component {
         super(props);
         
         this.renderLogin = this.renderLogin.bind(this);
+        this.state = {
+            showLogin: false
+        }
     }
 
     renderLogin(){
-        if(this.props.userdata.loggedIn){
-            return <button onClick={this.props.logOut}>logout</button>;
-        }else{
-            return <LoginForm login={this.props.login}/>;
+        if(this.state.showLogin){
+            if(this.props.userdata.loggedIn){
+                return <button onClick={this.props.logOut}>logout</button>;
+            }else{
+                return <LoginForm login={this.props.login}/>;
+            }
         }
+        
     }
 
 
@@ -37,7 +43,15 @@ export default class MainLayout extends Component {
                     </div>
                 </div>
                 <div className="container">
-                    {this.renderLogin()}
+                    <nav>
+                        <div className="loginTrigger" onClick={() => this.setState({showLogin: !this.state.showLogin})}>
+                            <a>
+                            Log in
+                            <i class="fa fa-angle-double-down"></i>
+                            </a>
+                        </div>
+                        {this.renderLogin()}
+                    </nav>
                     <div className="leftColumn">
                         {this.props.content}
                     </div>

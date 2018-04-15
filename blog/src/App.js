@@ -108,7 +108,8 @@ class App extends Component {
           <Route exact={true} path="/" component={() => 
             <MainLayout login={this.login} logOut={this.logOut} userdata={this.state.userdata} content={<ArticlesWrapper />} />} />
           <Route path={"/post/:postID"} render={(props) => 
-            <MainLayout login={this.login} logOut={this.logOut} userdata={this.state.userdata} content={<FullArticle {...props} />} /> } />
+            <MainLayout login={this.login} logOut={this.logOut} userdata={this.state.userdata} content={
+            <FullArticle userdata = {this.state.userdata} {...props} />} /> } />
           <Route path={"/signup"} render={(props) => 
             <MainLayout login={this.login} logOut={this.logOut} userdata={this.state.userdata} content={<SignUpPage signUp={this.signUp}/>} /> } />
         </Switch>

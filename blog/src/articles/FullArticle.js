@@ -62,7 +62,7 @@ export default class FullArticle extends Component {
                 {comments.map((comment) =>{
                     return <Comment key={comment.id} comment={comment} />
                 })}
-                <CommentForm blogID={this.props.match.params.postID} fetchPosts={this.fetchPosts}/>
+                <CommentForm userdata={this.props.userdata} blogID={this.props.match.params.postID} fetchPosts={this.fetchPosts}/>
             </div>
         );
         

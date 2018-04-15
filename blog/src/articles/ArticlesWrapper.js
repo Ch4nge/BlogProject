@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Article from './Article';
-import LimitedInfiniteScroll from 'react-limited-infinite-scroll'
-import contains from 'string-contains'
+import LimitedInfiniteScroll from 'react-limited-infinite-scroll';
+import contains from 'string-contains';
+
 export default class ArticlesWrapper extends Component {
 
     constructor(props){
@@ -69,7 +70,8 @@ export default class ArticlesWrapper extends Component {
             <input type="text" 
             name="search" 
             ref="search"
-            placeholder="Search"
+            className="searchBar"
+            placeholder="&#xF002; Search.."
             onChange={this.handleChange}/>
 
             <LimitedInfiniteScroll 
