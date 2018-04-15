@@ -4,7 +4,6 @@ import ArticlesWrapper from './articles/ArticlesWrapper';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import FullArticle from './articles/FullArticle';
 import ArticleForm from './articles/ArticleForm';
-import SignUpPage from './login/SignUpPage';
 
 
 class App extends Component {
@@ -104,14 +103,12 @@ class App extends Component {
         {this.redirect()}
         <Switch>
           <Route path="/articleForm" render={() => 
-            <MainLayout login={this.login} logOut={this.logOut} userdata={this.state.userdata} content={<ArticleForm/>}/>}/>
+            <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} content={<ArticleForm/>}/>}/>
           <Route exact={true} path="/" component={() => 
-            <MainLayout login={this.login} logOut={this.logOut} userdata={this.state.userdata} content={<ArticlesWrapper />} />} />
+            <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} content={<ArticlesWrapper />} />} />
           <Route path={"/post/:postID"} render={(props) => 
-            <MainLayout login={this.login} logOut={this.logOut} userdata={this.state.userdata} content={
+            <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} content={
             <FullArticle userdata = {this.state.userdata} {...props} />} /> } />
-          <Route path={"/signup"} render={(props) => 
-            <MainLayout login={this.login} logOut={this.logOut} userdata={this.state.userdata} content={<SignUpPage signUp={this.signUp}/>} /> } />
         </Switch>
       </div>
     );

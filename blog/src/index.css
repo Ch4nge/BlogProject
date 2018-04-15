@@ -356,6 +356,14 @@ after { clear: both; }
   padding-left: 5px;
 }
 
+.userSignUp{
+  margin-bottom: 5px;
+}
+
+.passwordSignUp{
+  margin-bottom: 5px;
+}
+
 /* Make columns responsive */
 @media screen and (max-width: 1000px) {
   .leftColumn, .rightColumn {   

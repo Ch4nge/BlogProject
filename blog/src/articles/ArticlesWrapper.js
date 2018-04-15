@@ -30,7 +30,7 @@ export default class ArticlesWrapper extends Component {
     renderArticle(article){
         if(this.state.activeArticles.length > 0){
 
-            if(this.state.search.trim() == "") {
+            if(this.state.search.trim() === "") {
                 return <Article key={article.id} article={article} />
             } else if(contains(article.title.toLowerCase(),this.state.search.toLocaleLowerCase())) {
                 return <Article key={article.id} article={article} />
