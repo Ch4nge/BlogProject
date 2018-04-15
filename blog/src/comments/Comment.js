@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Like from "../comments/Like"
 export default class Comment extends Component {
 
   render(){
@@ -12,8 +11,6 @@ export default class Comment extends Component {
             </p>
         </div>
         <span className="commentDate">18.3.2018 15:00</span>
-        
-          <Like commentId={this.props.comment.id} />
       
       </div>
     );

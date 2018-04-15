@@ -117,7 +117,12 @@ public class BlogRestInterface {
         return likeRepository.findByBlogComment(blogComment);
     }
 
-
+    @CrossOrigin
+    @RequestMapping(value = "/blogs/comments/{likeID}", method = RequestMethod.DELETE)
+    public void deleteBlogLike(@PathVariable long likeID){
+        likeRepository.deleteById(likeID);
+        //korjaappa viä!!!!!!!!!!!
+    }
 
 
     //USERS
