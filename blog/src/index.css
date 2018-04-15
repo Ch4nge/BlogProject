@@ -1,8 +1,15 @@
+@charset "utf-8";
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i');@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i');
+
+
 * {
   box-sizing: border-box;
 }
 
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
 
 body {
   font-family: Arial;
@@ -204,6 +211,90 @@ body {
   font-size:12px;
 }
 
+/*Login*/
+
+input {
+  border: none;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5em;
+  padding: 0;
+  -webkit-appearance: none;
+}
+
+p {
+  line-height: 1.5em;
+}
+
+after { clear: both; }
+
+#login {
+  float: right;
+}
+
+#login form {
+  margin: auto;
+  width: 100%;
+  border-radius: 5px;
+}
+
+#login form span {
+  background-color: #363b41;
+  border-radius: 3px 0px 0px 3px;
+  border-right: 3px solid #434a52;
+  color: #606468;
+  display: inline-block;
+  line-height: 35px;
+  text-align: center;
+  margin-left: 5px;
+  width: 36px;
+  height: 36px;
+}
+
+#login form input[type="text"] {
+  background-color: #3b4148;
+  border-radius: 0px 3px 3px 0px;
+  color: #a9a9a9;
+  margin-left: 0px;
+  padding: 0 16px;
+  width: 12rem;
+  height: 36px;
+}
+
+#login form input[type="password"] {
+  background-color: #3b4148;
+  border-radius: 0px 3px 3px 0px;
+  color: #a9a9a9;
+  margin-bottom: 1em;
+  margin-left: 0px;
+  padding: 0 16px;
+  width: 12rem;
+  height: 36px;
+}
+
+.loginBtn {
+	-moz-box-shadow:inset 0px 34px 0px -15px #b54b3a;
+	-webkit-box-shadow:inset 0px 34px 0px -15px #b54b3a;
+	box-shadow:inset 0px 34px 0px -15px #b54b3a;
+	background-color:#a73f2d;
+	border:1px solid #241d13;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:9px 23px;
+	text-decoration:none;
+	text-shadow:0px -1px 0px #7a2a1d;
+}
+.loginBtn:hover {
+	background-color:#b34332;
+}
+.loginBtn:active {
+	position:relative;
+	top:1px;
+}
 
 /* Make columns responsive */
 @media screen and (max-width: 1000px) {

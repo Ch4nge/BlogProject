@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import 'font-awesome/css/font-awesome.css';
+
 
 export default class LoginForm extends Component {
 
@@ -29,15 +31,18 @@ export default class LoginForm extends Component {
 
     render(){
         return(
-            <div className="loginContainer">
-                <div className="loginForm">
-                    <input name="username" placeholder="Username" type="text" onChange={this.handleChange}/>
-                    <input name="password" placeholder="Password" type="password" onChange={this.handleChange}/>
-                    <button onClick={this.login}>Log in</button>
-                </div>
-
-                <div className="signUpBtn">
+            <div>
+                <div name="form-login" id="login">
+                    <form>
+                        <span class="fontawesome-user"></span>
+                        <input id="user" name="username" placeholder="Username" type="text" onChange={this.handleChange}/>
+                        <span class="fontawesome-lock"></span>
+                        <input id="password" name="password" placeholder="Password" type="password" onChange={this.handleChange}/>
+                    </form>
+                    <a className="loginBtn" onClick={this.login}>Log in</a>
+                    <div className="signUpBtn">
                     <Link to="/signup"><p>Sign up</p> </Link>
+                </div>
                 </div>
             </div>
         );
