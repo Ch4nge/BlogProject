@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
 @RestController
 public class BlogRestInterface {
 
@@ -24,6 +21,9 @@ public class BlogRestInterface {
 
     @Autowired
     MemberRepository memberRepository;
+
+    @Autowired
+    BlogLikeRepository likeRepository;
 
     @CrossOrigin
     @RequestMapping(value = "/blogs", method= RequestMethod.POST)
@@ -89,6 +89,40 @@ public class BlogRestInterface {
     public void deleteBlogComment(@PathVariable long commentID){
         postRepository.deleteById(commentID);
     }*/
+
+    //BLOG COMMENT LIKE
+    @CrossOrigin
+    @RequestMapping(value = "/blogs/{blogID}/comments/{blogCommentID}/like", method= RequestMethod.POST)
+    public ResponseEntity<Void> addBlogCommentLike(
+            UriComponentsBuilder builder,
+            @PathVariable long blogID,
+            @PathVariable long blogCommentID){
+
+        BlogLike blogLike = new BlogLike(commentRepository.findById(blogCommentID).orElse(null));
+
+        likeRepository.save(blogLike);
+
+        UriComponents uriComponents =
+                builder.path("/blogs/{blogID}/comments/{blogCommentID}/like").buildAndExpand(blogID, blogCommentID);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(uriComponents.toUri());
+
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/blogs/{blogID}/comments/{blogCommentID}/like", method = RequestMethod.GET)
+    public Iterable<BlogLike> getBlogLikes(@PathVariable long blogID, @PathVariable long blogCommentID){
+        BlogComment blogComment = commentRepository.findById(blogCommentID).orElse(null);
+        return likeRepository.findByBlogComment(blogComment);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/blogs/comments/{likeID}", method = RequestMethod.DELETE)
+    public void deleteBlogLike(@PathVariable long likeID){
+        likeRepository.deleteById(likeID);
+        //korjaappa viä!!!!!!!!!!!
+    }
 
 
     //USERS

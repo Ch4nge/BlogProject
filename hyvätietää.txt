@@ -21,3 +21,7 @@ curl -H "Content-Type: application/json" -X "POST" -d "{\"title\":\"titteli\",\"
 
 users:
 curl -H "Content-Type: application/json" -X "POST" -d "{\"username\":\"sami\",\"password\":\"sami\",\"role\": \"user\"}" localhost:8080/users
+
+likes:
+
+curl -H "Content-Type: application/json" -X "POST" -d localhost:8080/blogs/1/comments/1/like
