@@ -15,7 +15,8 @@ export default class MainLayout extends Component {
 
         this.state = {
             showLogin: false,
-            showSignUp: false
+            showSignUp: false,
+            logInTriggerText: "Log in"
         }
 
         this.renderLogin = this.renderLogin.bind(this);
@@ -29,7 +30,11 @@ export default class MainLayout extends Component {
             );
         }else if(this.state.showLogin){
             if(this.props.userdata.loggedIn){
-                return <button onClick={this.props.logOut}>logout</button>;
+                return (
+                <div id="login">
+                    <a class="loginBtn" id="logOut" onClick={this.props.logOut}>logout</a>
+                </div>
+                );
             }else{
                 return <LoginForm login={this.props.login} signUpTrigger={this.signUpTrigger}/>;
             }
@@ -40,6 +45,27 @@ export default class MainLayout extends Component {
         this.setState({
             showSignUp: open
         })
+    }
+
+    renderLogInTrigger(){
+        let text;
+        if(this.props.userdata.loggedIn)
+            text = this.props.userdata.username;
+        else
+            text = "Log in"
+        
+        return(
+            <div className="loginTrigger" onClick={() => { 
+                this.setState({
+                    showLogin: !this.state.showLogin,
+                    showSignUp: false
+                    })}}>
+                <a>
+                {text}
+                <i className="fa fa-angle-double-down"></i>
+                </a>
+            </div>
+        );
     }
 
 
@@ -57,16 +83,7 @@ export default class MainLayout extends Component {
                 </div>
                 <div className="container">
                     <nav>
-                        <div className="loginTrigger" onClick={() => { 
-                            this.setState({
-                                showLogin: !this.state.showLogin,
-                                showSignUp: false
-                                })}}>
-                            <a>
-                            Log in
-                            <i className="fa fa-angle-double-down"></i>
-                            </a>
-                        </div>
+                        {this.renderLogInTrigger()}
                         {this.renderLogin()}
                     </nav>
                     <div className="leftColumn">

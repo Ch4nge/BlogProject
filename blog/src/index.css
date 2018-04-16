@@ -271,6 +271,7 @@ after { clear: both; }
 
 #login {
   float: right;
+  text-align: center;
   background-color: rgb(19, 23, 34);
   margin: 0;
   padding: 20px;
@@ -354,6 +355,36 @@ after { clear: both; }
   color: white;
   padding-top: 2px;
   padding-left: 5px;
+}
+
+.signUpBtn2 {
+  position: relative;
+  top: 10px;
+	-moz-box-shadow:inset 0px 34px 0px -15px #b54b3a;
+	-webkit-box-shadow:inset 0px 34px 0px -15px #b54b3a;
+	box-shadow:inset 0px 34px 0px -15px #b54b3a;
+	background-color:#a73f2d;
+  border:1px solid #241d13;
+  height: 35px;
+  cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:9px 23px;
+	text-decoration:none;
+  text-shadow:0px -1px 0px #7a2a1d;
+}
+.signUpBtn2:hover {
+	background-color:#b34332;
+}
+.signUpBtn2:active {
+	position: relative;
+  top: 9px;
+}
+
+#logOut {
+  top: 0;
 }
 
 .userSignUp{
