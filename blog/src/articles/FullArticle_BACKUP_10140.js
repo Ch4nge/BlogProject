@@ -60,6 +60,7 @@ export default class FullArticle extends Component {
             
                 <h4>Comments</h4>
                 {comments.map((comment) =>{
+<<<<<<< HEAD
                     return (
                         <div>
                         <Comment key={comment.id} comment={comment} blogID ={this.props.match.params.postID}/>
@@ -67,7 +68,12 @@ export default class FullArticle extends Component {
                         </div>
                     )
                     })}
+                <CommentForm blogID={this.props.match.params.postID} fetchPosts={this.fetchPosts}/>
+=======
+                    return <Comment key={comment.id} comment={comment} />
+                })}
                 <CommentForm userdata={this.props.userdata} blogID={this.props.match.params.postID} fetchPosts={this.fetchPosts}/>
+>>>>>>> login-2
             </div>
         );
         

@@ -160,9 +160,15 @@ public class BlogRestInterface {
 
     @CrossOrigin
     @RequestMapping(value = "/users/login", method = RequestMethod.POST)
-    public Member login(@RequestBody LoginAttempt loginAttempt){
+    public ResponseEntity<Member> login(@RequestBody LoginAttempt loginAttempt, UriComponentsBuilder builder){
+
         Member member =
                 memberRepository.findByUsernameAndPassword(loginAttempt.getUsername(),loginAttempt.getPassword());
-        return member;
+
+
+        if(member == null){
+            return new ResponseEntity<Member>(member, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Member>(member, HttpStatus.OK);
     }
 }

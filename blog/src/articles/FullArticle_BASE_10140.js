@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Comment from '../comments/Comment';
 import CommentForm from '../comments/CommentForm';
-import Like from "../comments/Like"
+
 
 export default class FullArticle extends Component {
 
@@ -60,14 +60,9 @@ export default class FullArticle extends Component {
             
                 <h4>Comments</h4>
                 {comments.map((comment) =>{
-                    return (
-                        <div>
-                        <Comment key={comment.id} comment={comment} blogID ={this.props.match.params.postID}/>
-                        <Like commentId={comment.id} blogID ={this.props.match.params.postID}/>
-                        </div>
-                    )
-                    })}
-                <CommentForm userdata={this.props.userdata} blogID={this.props.match.params.postID} fetchPosts={this.fetchPosts}/>
+                    return <Comment key={comment.id} comment={comment} />
+                })}
+                <CommentForm blogID={this.props.match.params.postID} fetchPosts={this.fetchPosts}/>
             </div>
         );
         

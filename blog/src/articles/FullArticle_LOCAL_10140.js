@@ -67,7 +67,7 @@ export default class FullArticle extends Component {
                         </div>
                     )
                     })}
-                <CommentForm userdata={this.props.userdata} blogID={this.props.match.params.postID} fetchPosts={this.fetchPosts}/>
+                <CommentForm blogID={this.props.match.params.postID} fetchPosts={this.fetchPosts}/>
             </div>
         );
         

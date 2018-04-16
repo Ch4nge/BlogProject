@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Article from './Article';
-import LimitedInfiniteScroll from 'react-limited-infinite-scroll'
-import contains from 'string-contains'
+import LimitedInfiniteScroll from 'react-limited-infinite-scroll';
+import contains from 'string-contains';
+
 export default class ArticlesWrapper extends Component {
 
     constructor(props){
@@ -29,7 +30,7 @@ export default class ArticlesWrapper extends Component {
     renderArticle(article){
         if(this.state.activeArticles.length > 0){
 
-            if(this.state.search.trim() == "") {
+            if(this.state.search.trim() === "") {
                 return <Article key={article.id} article={article} />
             } else if(contains(article.title.toLowerCase(),this.state.search.toLocaleLowerCase())) {
                 return <Article key={article.id} article={article} />
@@ -69,7 +70,8 @@ export default class ArticlesWrapper extends Component {
             <input type="text" 
             name="search" 
             ref="search"
-            placeholder="Search"
+            className="searchBar"
+            placeholder="&#xF002; Search.."
             onChange={this.handleChange}/>
 
             <LimitedInfiniteScroll 

@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import About from '../rightcolumn/About';
 import Popular from '../rightcolumn/Popular';
 import Tags from '../rightcolumn/Tags';
-import LoginForm from '../login/LoginForm';
+import LoginForm from '../login/LoginForm.js';
+import SignUpForm from '../login/SignUpForm';
 import {Link} from 'react-router-dom';
 import ArticleFilter from '../articles/ArticleFilter';
 
@@ -11,16 +12,60 @@ export default class MainLayout extends Component {
 
     constructor(props){
         super(props);
-        
+
+        this.state = {
+            showLogin: false,
+            showSignUp: false,
+            logInTriggerText: "Log in"
+        }
+
         this.renderLogin = this.renderLogin.bind(this);
+        this.signUpTrigger = this.signUpTrigger.bind(this);        
     }
 
     renderLogin(){
-        if(this.props.userdata.loggedIn){
-            return <button onClick={this.props.logOut}>logout</button>;
-        }else{
-            return <LoginForm login={this.props.login}/>;
-        }
+        if(this.state.showSignUp){
+            return(
+                <SignUpForm signUp={this.props.signUp}/>
+            );
+        }else if(this.state.showLogin){
+            if(this.props.userdata.loggedIn){
+                return (
+                <div id="login">
+                    <a class="loginBtn" id="logOut" onClick={this.props.logOut}>logout</a>
+                </div>
+                );
+            }else{
+                return <LoginForm login={this.props.login} signUpTrigger={this.signUpTrigger}/>;
+            }
+        }    
+    }
+
+    signUpTrigger(open){
+        this.setState({
+            showSignUp: open
+        })
+    }
+
+    renderLogInTrigger(){
+        let text;
+        if(this.props.userdata.loggedIn)
+            text = this.props.userdata.username;
+        else
+            text = "Log in"
+        
+        return(
+            <div className="loginTrigger" onClick={() => { 
+                this.setState({
+                    showLogin: !this.state.showLogin,
+                    showSignUp: false
+                    })}}>
+                <a>
+                {text}
+                <i className="fa fa-angle-double-down"></i>
+                </a>
+            </div>
+        );
     }
 
 
@@ -37,7 +82,10 @@ export default class MainLayout extends Component {
                     </div>
                 </div>
                 <div className="container">
-                    {this.renderLogin()}
+                    <nav>
+                        {this.renderLogInTrigger()}
+                        {this.renderLogin()}
+                    </nav>
                     <div className="leftColumn">
                         {this.props.content}
                     </div>
