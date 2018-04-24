@@ -11,7 +11,7 @@ git commit
 create react-app
 
 blog post:
-curl -H "Content-Type: application/json" -X "POST" -d "{\"title\":\"titteli\",\"description\":\"ebin\",\"content\":\"moi\"}" localhost:8080/blogs
+curl -H "Content-Type: application/json" -X "POST" -d "{\"title\":\"titteli\",\"description\":\"ebin\",\"content\":\"moi\", \"tags:\": [{\"title\": \"testi2\"}, {\"title\": \"testi1\"}]}" localhost:8080/blogs
 
 comments:667776565
 curl -H "Content-Type: application/json" -X "POST" -d 
