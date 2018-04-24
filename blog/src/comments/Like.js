@@ -5,6 +5,7 @@ export default class Like extends Component {
     super(props);
     this.state = {
       memberId: "",
+      blogID:"",
       isLiked: false,
       likes:[],
       buttonStyle: "likeButton"
@@ -45,10 +46,16 @@ export default class Like extends Component {
     if(this.state.isLiked) {
       console.log("deleted!")
       //täää ei toimi viä
+      fetch("http://localhost:8080/comments/"+this.props.commentId + "/" + this.props.userId + "/like", {
+        method: "DELETE"
+      })
+      .then(this.reloadLike);
+      
     } else {
       fetch("http://localhost:8080/comments/"+this.props.commentId + "/like", {
         body: JSON.stringify({
-            memberId: this.props.blogID, 
+            memberId: this.props.userId,
+            blogID: this.props.blogID 
         }),
         headers: {
           "Content-Type": "application/json"

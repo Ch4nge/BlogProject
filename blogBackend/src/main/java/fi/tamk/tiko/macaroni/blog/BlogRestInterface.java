@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class BlogRestInterface {
 
@@ -25,13 +28,24 @@ public class BlogRestInterface {
     @Autowired
     BlogLikeRepository likeRepository;
 
+    @Autowired
+    BlogTagRepository tagRepository;
+
     @CrossOrigin
     @RequestMapping(value = "/blogs", method= RequestMethod.POST)
-    public ResponseEntity<Void> addBlogPost(@RequestBody BlogPost bPost, UriComponentsBuilder builder){
-        postRepository.save(bPost);
+    public ResponseEntity<Void> addBlogPost(
+            @RequestBody BlogPostRequestWrapper wrapper, UriComponentsBuilder builder){
+        for(BlogTag tag : wrapper.getTags()){
+            if(tagRepository.findBlogTagByTitle(tag.getTitle()) == null){
+                tagRepository.save(tag);
+            }
+            wrapper.getPost().getTags().add(tagRepository.findBlogTagByTitle(tag.getTitle()));
+        }
+
+        postRepository.save(wrapper.getPost());
 
         UriComponents uriComponents =
-                builder.path("blogs/{id}").buildAndExpand(bPost.getId());
+                builder.path("blogs/{id}").buildAndExpand(wrapper.getPost().getId());
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uriComponents.toUri());
 
@@ -117,10 +131,10 @@ public class BlogRestInterface {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/blogs/comments/{likeID}", method = RequestMethod.DELETE)
-    public void deleteBlogLike(@PathVariable long likeID){
-        likeRepository.deleteById(likeID);
-        //korjaappa viä!!!!!!!!!!!
+    @RequestMapping(value = "/blogs/comments/{blogCommentID}/{userID}/like", method = RequestMethod.DELETE)
+    public void deleteBlogLike(@PathVariable long blogCommentID, @PathVariable long userID){
+        BlogComment blogComment = commentRepository.findById(blogCommentID).orElse(null);
+        likeRepository.deleteByBlogCommentAndMemberId(blogComment, userID);
     }
 
 
@@ -169,5 +183,11 @@ public class BlogRestInterface {
             return new ResponseEntity<Member>(member, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Member>(member, HttpStatus.OK);
+    }
+    //TAGS
+    @CrossOrigin
+    @RequestMapping(value = "/tags", method = RequestMethod.GET)
+    public Iterable<BlogTag> getTags(){
+        return tagRepository.findAll();
     }
 }

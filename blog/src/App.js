@@ -46,6 +46,7 @@ class App extends Component {
       if(res !== undefined){
         this.setState({
           userdata: {
+            userId: res.id,
             username: res.username,
             role: res.role,
             password: res.password,
@@ -104,8 +105,6 @@ class App extends Component {
       <div className="App">
         {this.redirect()}
         <Switch>
-          <Route path="/articleForm" render={() => 
-            <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} content={<ArticleForm/>}/>}/>
           <Route exact={true} path="/" component={() => 
             <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} content={<ArticlesWrapper />} />} />
           <Route path={"/post/:postID"} render={(props) => 

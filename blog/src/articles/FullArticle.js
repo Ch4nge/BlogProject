@@ -50,13 +50,13 @@ export default class FullArticle extends Component {
             
             <div className="articleCard">
             <span className="articleTitle">{this.state.article.title}</span>
-                    
+            <h5>{this.state.article.description} , <span className="articleDate">18.3.2018</span></h5>    
                 <div className="articleContent">
                     <p>
                         {this.state.article.content}
                     </p>
                 </div>
-                <h5>{this.state.article.description} , <span className="articleDate">18.3.2018</span></h5>
+                
             </div>
             
                 <h4>Comments</h4>
