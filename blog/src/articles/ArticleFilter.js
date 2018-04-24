@@ -22,7 +22,6 @@ export default class ArticleFilter extends Component {
             ref="search"
             placeholder="Search"
             onChange={this.handleChange}/>
-
         )
     }
 }

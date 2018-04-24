@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Comment from '../comments/Comment';
 import CommentForm from '../comments/CommentForm';
-import Like from "../comments/Like"
+
 
 export default class FullArticle extends Component {
 
@@ -44,7 +44,6 @@ export default class FullArticle extends Component {
     render(){
         let comments = this.state.comments;
         console.log(comments);
-        console.log(this.props.userdata)
         return(
             <div className="card">
             
@@ -61,13 +60,8 @@ export default class FullArticle extends Component {
             
                 <h4>Comments</h4>
                 {comments.map((comment) =>{
-                    return (
-                        <div>
-                        <Comment key={comment.id} comment={comment} blogID ={this.props.match.params.postID}/>
-                        <Like commentId={comment.id} blogID ={this.props.match.params.postID} userdata={this.props.userdata}/>
-                        </div>
-                    )
-                    })}
+                    return <Comment key={comment.id} comment={comment} />
+                })}
                 <CommentForm userdata={this.props.userdata} blogID={this.props.match.params.postID} fetchPosts={this.fetchPosts}/>
             </div>
         );
