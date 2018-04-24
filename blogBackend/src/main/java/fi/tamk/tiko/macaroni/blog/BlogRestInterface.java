@@ -92,10 +92,9 @@ public class BlogRestInterface {
 
     //BLOG COMMENT LIKE
     @CrossOrigin
-    @RequestMapping(value = "/blogs/{blogID}/comments/{blogCommentID}/like", method= RequestMethod.POST)
+    @RequestMapping(value = "comments/{blogCommentID}/like", method= RequestMethod.POST)
     public ResponseEntity<Void> addBlogCommentLike(
             UriComponentsBuilder builder,
-            @PathVariable long blogID,
             @PathVariable long blogCommentID){
 
         BlogLike blogLike = new BlogLike(commentRepository.findById(blogCommentID).orElse(null));
@@ -103,7 +102,7 @@ public class BlogRestInterface {
         likeRepository.save(blogLike);
 
         UriComponents uriComponents =
-                builder.path("/blogs/{blogID}/comments/{blogCommentID}/like").buildAndExpand(blogID, blogCommentID);
+                builder.path("comments/{blogCommentID}/like").buildAndExpand(blogCommentID);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uriComponents.toUri());
 
@@ -111,8 +110,8 @@ public class BlogRestInterface {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/blogs/{blogID}/comments/{blogCommentID}/like", method = RequestMethod.GET)
-    public Iterable<BlogLike> getBlogLikes(@PathVariable long blogID, @PathVariable long blogCommentID){
+    @RequestMapping(value = "comments/{blogCommentID}/like", method = RequestMethod.GET)
+    public Iterable<BlogLike> getBlogLikes(@PathVariable long blogCommentID){
         BlogComment blogComment = commentRepository.findById(blogCommentID).orElse(null);
         return likeRepository.findByBlogComment(blogComment);
     }

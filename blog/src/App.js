@@ -14,6 +14,7 @@ class App extends Component {
       userdata: {
         username: "",
         role: "",
+        password: "",
         loggedIn: false
       }
     }
@@ -39,6 +40,7 @@ class App extends Component {
           userdata: {
             username: res.username,
             role: res.role,
+            password: res.password,
             loggedIn: true
           }
         })
