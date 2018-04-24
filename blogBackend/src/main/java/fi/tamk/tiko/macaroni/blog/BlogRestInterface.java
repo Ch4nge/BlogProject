@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RestController
 public class BlogRestInterface {
@@ -56,6 +55,14 @@ public class BlogRestInterface {
     @RequestMapping(value = "/blogs", method = RequestMethod.GET)
     public Iterable<BlogPost> getBlogs(){
         return postRepository.findAll();
+    }
+    @CrossOrigin
+    @RequestMapping(value = "/blogs/tags/{tag}", method = RequestMethod.GET)
+    public Iterable<BlogPost> getBlogsByTag(@PathVariable String tag){
+        BlogTag blogTag = tagRepository.findBlogTagByTitle(tag);
+        HashSet<BlogTag> tagList = new HashSet<BlogTag>();
+        tagList.add(blogTag);
+        return postRepository.findByTagsIn(tagList);
     }
 
     @CrossOrigin

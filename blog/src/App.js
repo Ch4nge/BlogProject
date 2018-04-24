@@ -14,6 +14,7 @@ class App extends Component {
     this.state = {
       userdata: {
         username: "",
+        password: "",
         role: "",
         loggedIn: false
       },
@@ -46,6 +47,7 @@ class App extends Component {
         this.setState({
           userdata: {
             username: res.username,
+            password: res.password,
             role: res.role,
             loggedIn: true
         }
@@ -60,6 +62,7 @@ class App extends Component {
           userdata: {
             username: "",
             role: "",
+            password: "",
             loggedIn: false
           },
           redirect: false

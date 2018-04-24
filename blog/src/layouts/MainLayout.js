@@ -23,6 +23,11 @@ export default class MainLayout extends Component {
         this.signUpTrigger = this.signUpTrigger.bind(this);        
     }
 
+    renderPostBtn(){
+        if(this.props.userdata.role === "admin")
+            return <Link to="/articleForm"><a className="signUpBtn2" id="adminBtn">Add Article</a> </Link>;
+    }
+
     renderLogin(){
         if(this.state.showSignUp){
             return(
@@ -32,6 +37,7 @@ export default class MainLayout extends Component {
             if(this.props.userdata.loggedIn){
                 return (
                 <div id="login">
+                    {this.renderPostBtn()}
                     <a class="loginBtn" id="logOut" onClick={this.props.logOut}>logout</a>
                 </div>
                 );
@@ -83,14 +89,14 @@ export default class MainLayout extends Component {
                 </div>
                 <div className="container">
                     <nav>
+                        {this.renderPostBtn()}
                         {this.renderLogInTrigger()}
                         {this.renderLogin()}
                     </nav>
                     <div className="leftColumn">
                         {this.props.content}
                     </div>
-                    <div className="rightColumn">
-                        <Link to="/articleForm"><button>Add Article</button> </Link>  
+                    <div className="rightColumn">  
                         <About />
                         <Popular />
                         <Tags />
