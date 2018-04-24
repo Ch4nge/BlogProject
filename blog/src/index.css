@@ -134,6 +134,7 @@ body {
 
 .articleContent {
   margin-top: 10px;
+  white-space: pre-line;
 }
 
 .commentCard {

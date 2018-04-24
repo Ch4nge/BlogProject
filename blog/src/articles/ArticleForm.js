@@ -6,7 +6,9 @@ export default class ArticleForm extends Component {
         this.state = ({
             title: "",
             description: "",
-            content: ""
+            content: "",
+            tags: [],
+            tagText: ""
         });
         this.postArticle = this.postArticle.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -20,9 +22,12 @@ export default class ArticleForm extends Component {
 
         fetch("http://localhost:8080/blogs", {
             body: JSON.stringify({
-                title: this.state.title, 
-                description: this.state.description, 
-                content: this.state.content
+                post:{
+                    title: this.state.title, 
+                    description: this.state.description, 
+                    content: this.state.content
+                },
+                tags: this.state.tags
             }),
             headers: {
               "Content-Type": "application/json"
@@ -36,6 +41,15 @@ export default class ArticleForm extends Component {
         this.refs.description.value="";
         this.refs.content.value="";*/
         
+    }
+
+    addTag(event, text){
+        event.preventDefault();
+        let array = this.state.tags
+        array.push({title: text})
+        this.setState({
+            tags: array
+        })
     }
     
     render() {
@@ -51,12 +65,22 @@ export default class ArticleForm extends Component {
                         ref = "description"
                         onChange={this.handleChange}/><br/>
             Content:<br/>
-            <textarea rows="5" cols="60" 
-            name="content"
-            ref="content" 
-            onChange={this.handleChange}/><br/>
+            <textarea rows="30" cols="65" 
+                name="content"
+                ref="content" 
+                onChange={this.handleChange}/><br/>
+            Add Tags: <input type="text"
+                    name="tagText"
+                    ref="tagText"
+                    onChange={this.handleChange}
+                    /><button onClick={(event) => this.addTag(event, this.state.tagText) }>Add</button><br/>
+                <div className="formTags">
+                    {this.state.tags.map((tag) =>{
+                        return <span className="tag">{tag.title}</span>
+                    })}
+                </div>
             <Link to="/">
-            <button onClick={this.postArticle}>Add</button><br/>
+                <button onClick={this.postArticle}>Add</button><br/>
             </Link>
             
             </form>
