@@ -127,7 +127,8 @@ body {
 
 .articleTextContent{
   padding: 0.5em 1em;
-  
+  margin: auto;
+  width: 40rem;
 }
 
 .articleCard{
@@ -485,6 +486,7 @@ after { clear: both; }
   margin-top: 0;
   border: 0;
   color: white;
+  cursor: pointer;
   padding-top: 2px;
   padding-left: 5px;
 }
