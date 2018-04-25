@@ -6,8 +6,9 @@ export default class Like extends Component {
     this.state = {
       memberId: "",
       blogID:"",
-      isLiked: false,
+      isLiked: "",
       likes:[],
+      like:[],
       buttonStyle: "likeButton"
     };
     this.reloadLike = this.reloadLike.bind(this);
@@ -19,6 +20,23 @@ export default class Like extends Component {
   }
 
   componentWillMount() {
+      
+      fetch("http://localhost:8080/comments/"+this.props.commentId + "/" + this.props.userdata.userId +"/like")
+      .then(response => {
+        console.log(response);
+        if(response.status === 200) {
+          this.setState({
+            isLiked:true,
+            buttonStyle: "likeButtonPressed"})
+        } else {
+          this.setState({
+            isLiked:false,
+            buttonStyle: "likeButton"})
+        }
+      })
+
+      console.log(this.state.like);
+
     this.reloadLike()
   }
 
@@ -45,6 +63,7 @@ export default class Like extends Component {
     
   likeComment() {
     if(this.state.isLiked) {
+      console.log(this.props.userdata.userId);
       fetch("http://localhost:8080/comments/"+this.props.commentId + "/" + this.props.userdata.userId +"/like", {
         method: "DELETE"
       })
@@ -68,7 +87,6 @@ export default class Like extends Component {
   }
     
   render() {
-    
     return(
       <div className="likeField">
         <div className="likeCount">
