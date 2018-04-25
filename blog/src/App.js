@@ -15,6 +15,7 @@ class App extends Component {
       userdata: {
         username: "",
         password: "",
+        userId: "",
         role: "",
         password: "",
         loggedIn: false
@@ -34,6 +35,7 @@ class App extends Component {
         loggedIn: storage.getItem('loggedIn') === 'true',
         username: storage.getItem('username'),
         password: storage.getItem('password'),
+        userId: parseInt(storage.getItem('userId')),
         role: storage.getItem('role')
       }
     });
@@ -64,8 +66,7 @@ class App extends Component {
         storage.setItem('username', res.username);
         storage.setItem('password', res.password);
         storage.setItem('role', res.role);
-
-        console.log("Hello");
+        storage.setItem('userId', res.id.toString());
 
         this.setState({
           userdata: {
@@ -73,7 +74,6 @@ class App extends Component {
             username: res.username,
             password: res.password,
             role: res.role,
-            password: res.password,
             loggedIn: true
         }
         })
@@ -90,6 +90,7 @@ class App extends Component {
             username: "",
             role: "",
             password: "",
+            userId: "",
             loggedIn: false
           },
           redirect: false
@@ -128,6 +129,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.userdata);
     return (
       <div className="App">
         {this.redirect()}
