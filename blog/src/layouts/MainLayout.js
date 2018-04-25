@@ -27,7 +27,7 @@ export default class MainLayout extends Component {
         if(this.props.userdata.role === "admin") {
             return (
             <div>
-                <ArticleForm login={this.props.login} logOut={this.props.logOut} signUp={this.props.signUp} userdata={this.props.userdata}/>;
+                <ArticleForm login={this.props.login} logOut={this.props.logOut} signUp={this.props.signUp} userdata={this.props.userdata} setRedirect = {this.props.setRedirect}/>;
                 <button type="button" className="btn btn-success" data-toggle="modal" data-target="#postNotificationModal">Add Article</button>    
             </div>
         )
@@ -85,7 +85,6 @@ export default class MainLayout extends Component {
                     <div className="sides">
                     </div>
                     <div className="info">
-                    <h4><a href="#category">on tää kyll</a></h4>
                     <h1>HUIKEE BLOGI</h1>
                     
                     </div>
