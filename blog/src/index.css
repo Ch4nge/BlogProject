@@ -114,12 +114,25 @@ body {
   
 }
 
-.articleCard{
+.titleImg {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0; 
+}
+
+.articleTextContent{
   padding: 0.5em 1em;
+  
+}
+
+.articleCard{
+  padding: 0;
   margin-top: 20px;
   color: #5d627b;
   background: rgb(239, 248, 248);
-  border-top: solid 7px #8b8797;
+  border-radius: 10px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
 }
 .articleCard p {
@@ -135,6 +148,7 @@ body {
 .articleContent {
   margin-top: 10px;
   white-space: pre-line;
+  margin-bottom: 15px;
 }
 
 .commentBox{
@@ -170,6 +184,7 @@ body {
 }
 .commentCard p {
   margin: 0; 
+  white-space: pre-line;
   padding: 0;
 }
 
@@ -531,6 +546,10 @@ after { clear: both; }
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: none;
 }
+
+
+
+
 
 /* Make columns responsive */
 @media screen and (max-width: 1000px) {
