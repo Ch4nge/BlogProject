@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom'; 
+
 export default class ArticleForm extends Component {
   constructor(props) {
     super(props);
@@ -7,6 +8,7 @@ export default class ArticleForm extends Component {
       title: "",
       description: "",
       content: "",
+      imgUrl: "",
       tags: [],
       tagText: ""
     });
@@ -26,10 +28,11 @@ export default class ArticleForm extends Component {
                 post:{
                     title: this.state.title, 
                     description: this.state.description, 
-                    content: this.state.content
+                    content: this.state.content,
+                    image_url: this.state.imgUrl
                 },
                 tags: this.state.tags,
-                userdata: this.props.userdata
+                userdata: this.props.userdata,
             }),
             headers: {
               "Content-Type": "application/json"
@@ -55,7 +58,6 @@ export default class ArticleForm extends Component {
   }
     
   render() {
-    console.log(this.state.title);
     const {title, description, content} = this.state;
     const enabled =
           title.length > 0 &&
@@ -102,7 +104,7 @@ export default class ArticleForm extends Component {
                             name="imgUrl" 
                             ref = "imgUrl"
                             onChange={this.handleChange} 
-                            value={this.state.description} 
+                            value={this.state.imgUrl} 
                             placeholder="Url for image"required/>
                   </div>
                 </div>

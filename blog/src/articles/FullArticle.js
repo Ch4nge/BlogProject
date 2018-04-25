@@ -68,14 +68,18 @@ export default class FullArticle extends Component {
             <div className="card">
             
             <div className="articleCard">
-            <span className="articleTitle">{this.state.article.title}</span>
-            <h5>{this.state.article.description} , <span className="articleDate">18.3.2018</span></h5>    
-                <div className="articleContent">
-                    <p>
-                        {this.state.article.content}
-                    </p>
+                <div className="imgContainer">
+                    <img className="titleImg" src={this.state.article.image_url} />
                 </div>
-                
+                <div className="articleTextContent">
+                    <span className="articleTitle">{this.state.article.title}</span>
+                    <h5>{this.state.article.description} , <span className="articleDate">18.3.2018</span></h5>    
+                    <div className="articleContent">
+                        <p>
+                            {this.state.article.content}
+                        </p>
+                    </div>
+                </div>    
             </div>
             
                 <h4>Comments</h4>

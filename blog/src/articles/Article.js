@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 export default class Article extends Component {
 
     render(){
+        console.log(this.props.article);
         return(
             <div className="articleCard">
                 <div className="imgContainer">
-                    <img className="titleImg" src="https://www.w3schools.com/w3images/bridge.jpg" />
+                    <img className="titleImg" src={this.props.article.image_url} />
                 </div>
                 <div className="articleTextContent">
                     <div className="articleHeaader">
