@@ -130,19 +130,26 @@ public class BlogRestInterface {
         return likeRepository.findByBlogComment(blogComment);
     }
 
-    /*
     @CrossOrigin
-    @RequestMapping(value = "/blogs/comments/{blogCommentID}/like/{likeId}", method = RequestMethod.DELETE)
-    public void deleteBlogLike(@PathVariable long blogCommentID,
-                               @PathVariable long likeId,
-                               @RequestBody LoginAttempt loginAttempt){
-        Member member =
-                memberRepository.findByUsernameAndPassword(loginAttempt.getUsername(), loginAttempt.getPassword());
-        if(member != null) {
-            likeRepository.deleteById(likeId);
-        }
+    @RequestMapping(value = "/comments/{blogCommentID}/{userID}/like", method = RequestMethod.GET)
+    public ResponseEntity<BlogLike> getBlogLike(@PathVariable long blogCommentID,
+                                                @PathVariable long userID,
+                                                UriComponentsBuilder builder){
+        UriComponents uriComponents =
+                builder.path("comments/{blogCommentID}/{memberId}/like")
+                        .buildAndExpand(blogCommentID, blogCommentID);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(uriComponents.toUri());
 
-    }*/
+        BlogComment blogComment = commentRepository.findById(blogCommentID).orElse(null);
+
+        BlogLike blogLike = likeRepository.findByBlogCommentAndMemberId(blogComment, userID);
+        if(blogLike == null){
+            return new ResponseEntity<BlogLike>(headers, HttpStatus.NOT_FOUND);
+        }
+        
+        return new ResponseEntity<BlogLike>(blogLike, headers, HttpStatus.OK);
+    }
 
     @CrossOrigin
     @RequestMapping(value = "/comments/{blogCommentID}/{userID}/like", method = RequestMethod.DELETE)
