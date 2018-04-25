@@ -4,7 +4,7 @@ import ArticlesWrapper from './articles/ArticlesWrapper';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import FullArticle from './articles/FullArticle';
 import ArticleForm from './articles/ArticleForm';
-
+import ArticleSearchWrapper from './articles/ArticleSearchWrapper';
 
 class App extends Component {
 
@@ -25,6 +25,20 @@ class App extends Component {
     this.signUp = this.signUp.bind(this);
   }
 
+  componentWillMount() {
+    
+    let storage = window.localStorage;
+    this.setState({
+      userdata: {
+        loggedIn: storage.getItem('loggedIn') === 'true',
+        username: storage.getItem('username'),
+        password: storage.getItem('password'),
+        role: storage.getItem('role')
+      }
+    });
+  }
+
+
   login(data){
     fetch("http://localhost:8080/users/login", {
         body: JSON.stringify({
@@ -44,6 +58,14 @@ class App extends Component {
     })
     .then((res) =>{
       if(res !== undefined){
+        let storage = window.localStorage;
+        storage.setItem('loggedIn', "true");
+        storage.setItem('username', res.username);
+        storage.setItem('password', res.password);
+        storage.setItem('role', res.role);
+
+        console.log("Hello");
+
         this.setState({
           userdata: {
             username: res.username,
@@ -58,6 +80,8 @@ class App extends Component {
 
   logOut(event){
       event.preventDefault();
+      let storage = window.localStorage;
+      storage.clear();
       this.setState({
           userdata: {
             username: "",
@@ -74,7 +98,7 @@ class App extends Component {
         body: JSON.stringify({
             username: data.username,
             password: data.password,
-            role: data.role
+            role: "admin"
         }),
         headers: {
           "Content-Type": "application/json"
@@ -106,12 +130,18 @@ class App extends Component {
         {this.redirect()}
         <Switch>
           <Route path="/articleForm" render={() => 
-            <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} content={<ArticleForm/>}/>}/>
-          <Route exact={true} path="/" component={() => 
-            <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} content={<ArticlesWrapper />} />} />
+            <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} content={
+            <ArticleForm userdata={this.state.userdata}/>}/>}/>
+          <Route exact={true} path="/" component={(props) => 
+            <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} 
+            content={<ArticlesWrapper {...props}/>} />} />
           <Route path={"/post/:postID"} render={(props) => 
             <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} content={
             <FullArticle userdata = {this.state.userdata} {...props} />} /> } />
+          <Route path={"/tags/:tagName"} render={(props) => 
+          <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} content={
+            <ArticleSearchWrapper {...props} />
+          }/>} />
         </Switch>
       </div>
     );

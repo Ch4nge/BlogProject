@@ -27,7 +27,8 @@ export default class ArticleForm extends Component {
                     description: this.state.description, 
                     content: this.state.content
                 },
-                tags: this.state.tags
+                tags: this.state.tags,
+                userdata: this.props.userdata
             }),
             headers: {
               "Content-Type": "application/json"
@@ -53,37 +54,40 @@ export default class ArticleForm extends Component {
     }
     
     render() {
-        console.log(this.state.title);
-        return(
-            <form>
-            Title: <input type="text" 
-                    name="title" 
-                    ref="title" 
-                    onChange={this.handleChange}/> <br/>
-            Description: <input type="text" 
-                        name="description" 
-                        ref = "description"
-                        onChange={this.handleChange}/><br/>
-            Content:<br/>
-            <textarea rows="30" cols="65" 
-                name="content"
-                ref="content" 
-                onChange={this.handleChange}/><br/>
-            Add Tags: <input type="text"
-                    name="tagText"
-                    ref="tagText"
-                    onChange={this.handleChange}
-                    /><button onClick={(event) => this.addTag(event, this.state.tagText) }>Add</button><br/>
-                <div className="formTags">
-                    {this.state.tags.map((tag) =>{
-                        return <span className="tag">{tag.title}</span>
-                    })}
-                </div>
-            <Link to="/">
-                <button onClick={this.postArticle}>Add</button><br/>
-            </Link>
-            
-            </form>
-        )
+        if(this.props.userdata.role === "admin"){
+            return(
+                <form>
+                Title: <input type="text" 
+                        name="title" 
+                        ref="title" 
+                        onChange={this.handleChange}/> <br/>
+                Description: <input type="text" 
+                            name="description" 
+                            ref = "description"
+                            onChange={this.handleChange}/><br/>
+                Content:<br/>
+                <textarea rows="30" cols="65" 
+                    name="content"
+                    ref="content" 
+                    onChange={this.handleChange}/><br/>
+                Add Tags: <input type="text"
+                        name="tagText"
+                        ref="tagText"
+                        onChange={this.handleChange}
+                        /><button onClick={(event) => this.addTag(event, this.state.tagText) }>Add</button><br/>
+                    <div className="formTags">
+                        {this.state.tags.map((tag) =>{
+                            return <span className="tag">{tag.title}</span>
+                        })}
+                    </div>
+                <Link to="/">
+                    <button onClick={this.postArticle}>Add</button><br/>
+                </Link>
+                
+                </form>
+            )
+        }else{
+            return <div>Not authorized!</div>
+        }
     }
 }

@@ -37,7 +37,6 @@ export default class MainLayout extends Component {
             if(this.props.userdata.loggedIn){
                 return (
                 <div id="login">
-                    {this.renderPostBtn()}
                     <a class="loginBtn" id="logOut" onClick={this.props.logOut}>logout</a>
                 </div>
                 );
@@ -89,7 +88,6 @@ export default class MainLayout extends Component {
                 </div>
                 <div className="container">
                     <nav>
-                        {this.renderPostBtn()}
                         {this.renderLogInTrigger()}
                         {this.renderLogin()}
                     </nav>
