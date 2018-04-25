@@ -92,7 +92,7 @@ export default class Like extends Component {
         <div className="likeCount">
           <p>{this.state.likes.length}</p>
         </div>
-        <button className= {this.state.buttonStyle} onClick={this.likeComment}><span>Like</span></button>
+        <button className= {this.state.buttonStyle} onClick={this.likeComment}><span></span></button>
       </div>
     )
   }
