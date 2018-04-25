@@ -95,6 +95,18 @@ export default class ArticleForm extends Component {
                   </div>
                 </div>
                 <div class="form-group row">
+                  <label for="Url image" class="col-sm-2 col-form-label">Images url:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control"
+                            input type="text" 
+                            name="imgUrl" 
+                            ref = "imgUrl"
+                            onChange={this.handleChange} 
+                            value={this.state.description} 
+                            placeholder="Url for image"required/>
+                  </div>
+                </div>
+                <div class="form-group row">
                   <label for="content" class="col-sm-2 col-form-label">Content:</label>
                   <div class="col-sm-10">
                     <textarea class="form-control" 

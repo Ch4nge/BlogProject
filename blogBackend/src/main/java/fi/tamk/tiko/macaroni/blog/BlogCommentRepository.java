@@ -7,5 +7,4 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface BlogCommentRepository extends CrudRepository<BlogComment, Long> {
     public Iterable<BlogComment> findByBlogpostid(long blogpostid);
-
 }
