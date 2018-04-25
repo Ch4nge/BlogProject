@@ -13,7 +13,9 @@ export default class Article extends Component {
                 <div className="articleTextContent">
                     <div className="articleHeaader">
                         <h3>{this.props.article.title}</h3>
-                        <h5>{this.props.article.description}, <span className="articleDate">18.3.2018</span></h5>
+                        <h5>{this.props.article.description}, <span className="articleDate">
+                            {this.props.article.postedAt.substring(0,10).replace("-",".").replace("-",".")}
+                        </span></h5>
                     </div>
                     <div className="articleContent">
                         <p>
