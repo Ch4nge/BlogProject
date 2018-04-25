@@ -194,6 +194,50 @@ body {
 .likeButton {
   display: inline-block;
   padding: .65em 3em;
+  background: -webkit-linear-gradient(#997b85 , #c2a2ad);
+  background: linear-gradient(#83646e , #8d4e63);
+  border: 1px solid #8d606f;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 16px;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+}
+
+.likeButton span {
+  position: relative;
+  display: inline-block;
+  padding-left: 1.6em;
+}
+
+.likeButton:focus span::before {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  content: '\002764';
+  color: rgb(34, 19, 31);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.likeButton span::before {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  content: '\002764';
+  color: rgb(119, 115, 115);
+  font-size: 20px;
+  line-height: 1;
+}
+
+
+.likeButtonPressed {
+  display: inline-block;
+  padding: .65em 3em;
   background: -webkit-linear-gradient(#fe5f95 , #ff3f7f);
   background: linear-gradient(#fe5f95 , #ff3f7f);
   border: 1px solid #fe3276;
@@ -208,34 +252,19 @@ body {
   transition: .3s ease-in-out;
 }
 
-.likeButton:focus {
-  background: -webkit-linear-gradient(#492933 , #50323c);
-  background: linear-gradient(#703e4f , #ff3f7f);
-  border: 1px solid #633b48;
-}
-
-.likeButton span {
+.likeButtonPressed span {
   position: relative;
   display: inline-block;
   padding-left: 1.6em;
 }
 
-.likeButton:focus span::before {
+
+.likeButtonPressed span::before {
   position: absolute;
   top: 4px;
   left: 0;
   content: '\002764';
   color: rgb(255, 109, 223);
-  font-size: 20px;
-  line-height: 1;
-}
-
-.likeButton span::before {
-  position: absolute;
-  top: 4px;
-  left: 0;
-  content: '\002764';
-  color: rgb(119, 115, 115);
   font-size: 20px;
   line-height: 1;
   -webkit-animation: icon 1.5s ease-in-out infinite;
@@ -247,6 +276,7 @@ body {
 @keyframes icon {
   50% { transform: scale(1.2); }
 }
+
 
 .container {
   max-width: 85em;

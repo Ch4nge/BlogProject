@@ -8,5 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface BlogLikeRepository extends CrudRepository<BlogLike, Long> {
     public Iterable<BlogLike> findByBlogComment(BlogComment blogComment);
+    public BlogLike findByBlogCommentAndMemberId(BlogComment comment, long id);
 
 }
