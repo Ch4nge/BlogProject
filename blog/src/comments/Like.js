@@ -14,7 +14,6 @@ export default class Like extends Component {
     this.componentWillMount = this.componentWillMount.bind(this);
     this.likeComment = this.likeComment.bind(this);
     this.likePressed = this.likePressed.bind(this);
-
     console.log(this.props.commentId);
     console.log(this.props.blogID);
   }
@@ -41,20 +40,20 @@ export default class Like extends Component {
         likes: response
     }))
   }
+
+
     
   likeComment() {
     if(this.state.isLiked) {
-      console.log("deleted!")
-      //täää ei toimi viä
-      fetch("http://localhost:8080/comments/"+this.props.commentId + "/" + this.props.userId + "/like", {
+      fetch("http://localhost:8080/comments/"+this.props.commentId + "/" + this.props.userdata.userId +"/like", {
         method: "DELETE"
       })
       .then(this.reloadLike);
-      
+      console.log("deleted");
     } else {
-      fetch("http://localhost:8080/comments/"+this.props.commentId + "/like", {
+      fetch("http://localhost:8080/comments/"+this.props.commentId + "/" + this.props.userdata.userId + "/like", {
         body: JSON.stringify({
-            memberId: this.props.userId,
+            memberId: this.props.userdata.userId,
             blogID: this.props.blogID 
         }),
         headers: {

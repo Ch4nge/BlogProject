@@ -65,12 +65,7 @@ export default class ArticleForm extends Component {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title">New Article</h5>
-              <button type="button" 
-                      class="close" 
-                      aria-label="Close" 
-                      data-dismiss="modal">
-                <span aria-hidden="true">&times;</span>
-              </button>
+              
             </div>
             <div class="modal-body">
               <form>
@@ -101,7 +96,7 @@ export default class ArticleForm extends Component {
                   <label for="content" class="col-sm-2 col-form-label">Content:</label>
                   <div class="col-sm-10">
                     <textarea class="form-control" 
-                      rows="30" cols="65" 
+                      rows="20" cols="40" 
                       name="content"
                       ref="content" 
                       onChange={this.handleChange} 
@@ -110,18 +105,27 @@ export default class ArticleForm extends Component {
                   </div>
                 </div>
                 <div class="form-group row">
-                Add Tags: <input class="form-control"
-                                  type="text"
-                                  name="tagText"
-                                  ref="tagText"
-                                  onChange={this.handleChange}
-                /><button onClick={(event) => this.addTag(event, this.state.tagText) }>Add</button><br/>
-                <div className="formTags">
-                    {this.state.tags.map((tag) =>{
-                        return <span className="tag">{tag.title}</span>
-                    })}
+                  <label for="addTags" class="col-sm-2 col-form-label">Add Tags: </label>
+                  <div class="col-sm-5">
+                  <input class="form-control"
+                                    type="text"
+                                    name="tagText"
+                                    ref="tagText"
+                                    onChange={this.handleChange}/>
+                  </div>
+                  <button type="button"class="btn btn-default" onClick={(event) => this.addTag(event, this.state.tagText) }>Add</button>
+
                 </div>
-              </div>
+                <div class="form-group row">
+                    <label for="addedTags" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-5">
+                    <div className="formTags">
+                        {this.state.tags.map((tag) =>{
+                            return <span className="tag">{tag.title}</span>
+                        })}
+                    </div>
+                    </div>
+                  </div>
               </form>
             </div>
             <div class="modal-footer">
