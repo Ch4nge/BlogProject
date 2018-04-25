@@ -18,6 +18,7 @@ export default class FullArticle extends Component {
         }
         this.fetchPosts = this.fetchPosts.bind(this);
         this.deleteComment = this.deleteComment.bind(this);
+        this.checkRole = this.checkRole.bind(this);
     }
     
     componentWillMount(){
@@ -59,6 +60,19 @@ export default class FullArticle extends Component {
         })
     }
 
+    checkRole(comment) {
+        if(this.props.userdata.role === "admin") {
+            return(
+                <div className = "flat-right">
+                <button type="button" 
+                        class="btn btn-warning" 
+                        onClick={(event) => this.deleteComment(event, comment.id)}>Delete</button>
+                </div>
+            ) 
+        }
+
+    }
+
     render(){
         console.log(this.props.userdata);
         let comments = this.state.comments;
@@ -86,9 +100,11 @@ export default class FullArticle extends Component {
                 {comments.map((comment) =>{
                     return (
                         <div>
-                        <Comment key={comment.id} comment={comment} blogID ={this.props.match.params.postID}/>
-                        <Like commentId={comment.id} blogID ={this.props.match.params.postID} userdata={this.props.userdata}/>
-                        <button onClick={(event) => this.deleteComment(event, comment.id)}>Delete</button>
+                            <Comment key={comment.id} comment={comment} blogID ={this.props.match.params.postID}/>
+                                <div className = "commentBox">
+                                <Like commentId={comment.id} blogID ={this.props.match.params.postID} userdata={this.props.userdata}/>
+                                {this.checkRole(comment)}
+                            </div>
                         </div>
                     )
                     })}

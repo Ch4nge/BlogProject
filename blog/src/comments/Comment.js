@@ -10,7 +10,6 @@ export default class Comment extends Component {
                 {this.props.comment.content}
             </p>
         </div>
-        <button>Delete</button>
         <span className="commentDate">18.3.2018 15:00</span>
       </div>
     );

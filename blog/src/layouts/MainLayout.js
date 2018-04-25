@@ -24,10 +24,15 @@ export default class MainLayout extends Component {
     }
 
     renderPostBtn(){
-        if(this.props.userdata.role === "admin")
-            return <Link to="/articleForm"><a className="signUpBtn2" id="adminBtn">Add Article</a> </Link>;
+        if(this.props.userdata.role === "admin") {
+            return (
+            <div>
+                <ArticleForm login={this.props.login} logOut={this.props.logOut} signUp={this.props.signUp} userdata={this.props.userdata}/>;
+                <button type="button" className="btn btn-success" data-toggle="modal" data-target="#postNotificationModal">Add Article</button>    
+            </div>
+        )
+        }
     }
-
     renderLogin(){
         if(this.state.showSignUp){
             return(
@@ -94,8 +99,7 @@ export default class MainLayout extends Component {
                         {this.props.content}
                     </div>
                     <div className="rightColumn">
-                        <button type="button" className="btn btn-success" data-toggle="modal" data-target="#postNotificationModal">Add Article</button>
-                        <ArticleForm login={this.props.login} logOut={this.props.logOut} signUp={this.props.signUp} userdata={this.props.userdata}/>
+                        {this.renderPostBtn()}
                         <About />
                         <Popular />
                         <Tags />
