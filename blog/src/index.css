@@ -74,9 +74,12 @@ body {
   text-shadow:0 2px 3px rgba(0,0,0,0.2)
 }
 
-.info h4, .meta{
-  font-size:0.7em
+.info h1 {
+  background-color: rgba(27, 32, 48, 0.671);
+  margin: auto;
+  max-width: 400px;
 }
+
 .meta{
   font-style:italic;
 }
@@ -319,6 +322,10 @@ body {
   padding-bottom: 4px;
   text-align: center;
   font-size:12px;
+}
+
+.tag-search{
+  color: rgb(172, 183, 212);
 }
 
 .searchBar{

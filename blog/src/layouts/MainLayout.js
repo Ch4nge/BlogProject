@@ -85,7 +85,6 @@ export default class MainLayout extends Component {
                     <div className="sides">
                     </div>
                     <div className="info">
-                    <h4><a href="#category">on tää kyll</a></h4>
                     <h1>HUIKEE BLOGI</h1>
                     
                     </div>

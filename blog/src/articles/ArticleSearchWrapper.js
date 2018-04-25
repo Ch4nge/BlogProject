@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Article from './Article';
 import LimitedInfiniteScroll from 'react-limited-infinite-scroll';
 import contains from 'string-contains';
-import {Link} from 'react-router-dom';
 
 
 export default class ArticleSearchWrapper extends Component {
@@ -68,14 +67,13 @@ export default class ArticleSearchWrapper extends Component {
                 this.renderArticle(article)
         );
         return(
-            <div>
+            <div className = "tag-search">
             <input type="text" 
             name="search" 
             ref="search"
             className="searchBar"
             placeholder="&#xF002; Search.."
             onChange={this.handleChange}/>
-            <Link to="/"><button className="toHomeBtn">Back to home</button></Link>
             <h2>{"Searching for TAG: ["+this.props.match.params.tagName+"]"}</h2>
             <LimitedInfiniteScroll 
                 limit={1} 
