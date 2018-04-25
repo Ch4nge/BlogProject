@@ -8,7 +8,8 @@ export default class LoginForm extends Component {
         super(props);
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            error: ""
         }
         this.login = this.login.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -25,6 +26,9 @@ export default class LoginForm extends Component {
             password: this.state.password
         }
         console.log(data);
+        this.setState({
+            error: "Incorrect username or password!"
+        })
         this.props.login(data);
     }
 
@@ -39,8 +43,9 @@ export default class LoginForm extends Component {
                         <input id="password" name="password" placeholder="Password" type="password" onChange={this.handleChange}/>
                     </form>
                     <div className="loginBtns">
-                        <a className="signUpBtn" onClick={this.props.signUpTrigger}>Sign up</a>
+                        <a className="signUpBtn text-white" onClick={this.props.signUpTrigger}>Sign up</a>
                         <a className="loginBtn" onClick={this.login}>Log in</a>
+                        <p className="errorText text-warning">{this.state.error}</p>
                     </div>
                 </div>
             </div>

@@ -100,7 +100,6 @@ export default class MainLayout extends Component {
                     <div className="rightColumn">
                         {this.renderPostBtn()}
                         <About />
-                        <Popular />
                         <Tags />
                     </div>
                 </div>
