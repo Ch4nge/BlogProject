@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom'; 
-
 export default class ArticleForm extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +9,7 @@ export default class ArticleForm extends Component {
       content: "",
       imgUrl: "",
       tags: [],
-      tagText: ""
+      tagText: "",
     });
     this.postArticle = this.postArticle.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -39,12 +38,8 @@ export default class ArticleForm extends Component {
             },
             method: "POST"
           })
-          .then((res) => console.log(res))
+          .then((res) => this.props.setRedirect())
           .then((res) => console.log(res));
-        //event.preventDefault();
-        /*this.refs.title.value="";
-        this.refs.description.value="";
-        this.refs.content.value="";*/
         
     }
 

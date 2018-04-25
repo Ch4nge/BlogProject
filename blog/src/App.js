@@ -25,6 +25,7 @@ class App extends Component {
     this.login = this.login.bind(this);
     this.logOut = this.logOut.bind(this);
     this.signUp = this.signUp.bind(this);
+    this.setRedirect = this.setRedirect.bind(this);
   }
 
   componentWillMount() {
@@ -128,6 +129,12 @@ class App extends Component {
     }
   }
 
+  setRedirect() {
+    this.setState({
+      redirect: true
+    })
+  }
+
   render() {
     console.log(this.state.userdata);
     return (
@@ -135,13 +142,13 @@ class App extends Component {
         {this.redirect()}
         <Switch>
           <Route exact={true} path="/" component={(props) => 
-            <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} 
+            <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} setRedirect = {this.setRedirect}
             content={<ArticlesWrapper {...props}/>} />} />
           <Route path={"/post/:postID"} render={(props) => 
-            <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} content={
+            <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} setRedirect = {this.setRedirect} content={
             <FullArticle userdata = {this.state.userdata} {...props} />} /> } />
           <Route path={"/tags/:tagName"} render={(props) => 
-          <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} content={
+          <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} setRedirect = {this.setRedirect} content={
             <ArticleSearchWrapper {...props} />
           }/>} />
         </Switch>
