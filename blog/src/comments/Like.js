@@ -5,8 +5,11 @@ export default class Like extends Component {
     super(props);
     this.state = {
       memberId: "",
-      isLiked: false,
-      likes:[]
+      blogID:"",
+      isLiked: "",
+      likes:[],
+      like:[],
+      buttonStyle: "likeButton"
     };
     this.reloadLike = this.reloadLike.bind(this);
     this.componentWillMount = this.componentWillMount.bind(this);
@@ -17,34 +20,60 @@ export default class Like extends Component {
   }
 
   componentWillMount() {
+      
+      fetch("http://localhost:8080/comments/"+this.props.commentId + "/" + this.props.userdata.userId +"/like")
+      .then(response => {
+        console.log(response);
+        if(response.status === 200) {
+          this.setState({
+            isLiked:true,
+            buttonStyle: "likeButtonPressed"})
+        } else {
+          this.setState({
+            isLiked:false,
+            buttonStyle: "likeButton"})
+        }
+      })
+
+      console.log(this.state.like);
+
     this.reloadLike()
   }
 
   likePressed() {
     if(this.state.isLiked) {
         this.setState({isLiked:false});
+        this.setState({buttonStyle: "likeButton"})
     } else {
         this.setState({isLiked:true});
+        this.setState({buttonStyle: "likeButtonPressed"})
     }
 
   }
 
   reloadLike() {
-    fetch("http://localhost:8080/blogs/"+ this.props.blogID +"/comments/"+this.props.commentId + "/like")
+    fetch("http://localhost:8080/comments/"+this.props.commentId + "/like")
     .then(response => response.json())
     .then(response => this.setState({
         likes: response
     }))
   }
+
+
     
   likeComment() {
     if(this.state.isLiked) {
-      console.log("deleted!")
-      //täää ei toimi viä
+      console.log(this.props.userdata.userId);
+      fetch("http://localhost:8080/comments/"+this.props.commentId + "/" + this.props.userdata.userId +"/like", {
+        method: "DELETE"
+      })
+      .then(this.reloadLike);
+      console.log("deleted");
     } else {
-      fetch("http://localhost:8080/blogs/"+ this.props.blogID +"/comments/"+this.props.commentId + "/like", {
+      fetch("http://localhost:8080/comments/"+this.props.commentId + "/" + this.props.userdata.userId + "/like", {
         body: JSON.stringify({
-            memberId: this.props.blogID, 
+            memberId: this.props.userdata.userId,
+            blogID: this.props.blogID 
         }),
         headers: {
           "Content-Type": "application/json"
@@ -55,7 +84,6 @@ export default class Like extends Component {
       .then(this.reloadLike);
     }
     this.likePressed();
-
   }
     
   render() {
@@ -64,7 +92,7 @@ export default class Like extends Component {
         <div className="likeCount">
           <p>{this.state.likes.length}</p>
         </div>
-        <button className="likeButton" onClick={this.likeComment}><span>Like</span></button>
+        <button className= {this.state.buttonStyle} onClick={this.likeComment}><span>Like</span></button>
       </div>
     )
   }

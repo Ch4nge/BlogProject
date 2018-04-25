@@ -27,6 +27,11 @@ public class BlogLike {
         this.blogComment = comment;
     }
 
+    public BlogLike(BlogComment comment, long memberId) {
+        this.blogComment = comment;
+        this.memberId = memberId;
+    }
+
     public long getMemberId() {
         return memberId;
     }

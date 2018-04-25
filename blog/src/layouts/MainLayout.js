@@ -6,7 +6,7 @@ import LoginForm from '../login/LoginForm.js';
 import SignUpForm from '../login/SignUpForm';
 import {Link} from 'react-router-dom';
 import ArticleFilter from '../articles/ArticleFilter';
-
+import ArticleForm from '../articles/ArticleForm';
 
 export default class MainLayout extends Component {
 
@@ -73,7 +73,6 @@ export default class MainLayout extends Component {
         );
     }
 
-
     render(){
         return(
             <div className="siteWrapper">
@@ -94,7 +93,9 @@ export default class MainLayout extends Component {
                     <div className="leftColumn">
                         {this.props.content}
                     </div>
-                    <div className="rightColumn">  
+                    <div className="rightColumn">
+                        <button type="button" className="btn btn-success" data-toggle="modal" data-target="#postNotificationModal">Add Article</button>
+                        <ArticleForm login={this.props.login} logOut={this.props.logOut} signUp={this.props.signUp} userdata={this.props.userdata}/>
                         <About />
                         <Popular />
                         <Tags />

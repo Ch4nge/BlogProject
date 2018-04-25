@@ -63,6 +63,7 @@ export default class FullArticle extends Component {
         console.log(this.props.userdata);
         let comments = this.state.comments;
         console.log(comments);
+        console.log(this.props.userdata)
         return(
             <div className="card">
             
@@ -82,7 +83,7 @@ export default class FullArticle extends Component {
                     return (
                         <div>
                         <Comment key={comment.id} comment={comment} blogID ={this.props.match.params.postID}/>
-                        <Like commentId={comment.id} blogID ={this.props.match.params.postID}/>
+                        <Like commentId={comment.id} blogID ={this.props.match.params.postID} userdata={this.props.userdata}/>
                         <button onClick={(event) => this.deleteComment(event, comment.id)}>Delete</button>
                         </div>
                     )

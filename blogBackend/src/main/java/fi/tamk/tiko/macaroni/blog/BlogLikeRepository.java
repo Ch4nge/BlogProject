@@ -11,4 +11,5 @@ import java.util.List;
 public interface BlogLikeRepository extends CrudRepository<BlogLike, Long> {
     public Iterable<BlogLike> findByBlogComment(BlogComment blogComment);
     public List<BlogLike> removeBlogLikeByBlogComment(BlogComment blogComment);
+    public BlogLike findByBlogCommentAndMemberId(BlogComment comment, long id);
 }
