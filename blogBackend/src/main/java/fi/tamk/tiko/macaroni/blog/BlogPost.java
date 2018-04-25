@@ -22,6 +22,7 @@ public class BlogPost {
     @NotNull
     private String description;
 
+    private String image_url;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -50,6 +51,22 @@ public class BlogPost {
 
     public BlogPost() {
 
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
+    public Date getPostedAt() {
+        return postedAt;
+    }
+
+    public void setPostedAt(Date postedAt) {
+        this.postedAt = postedAt;
     }
 
     public Set<BlogTag> getTags() {
@@ -90,13 +107,5 @@ public class BlogPost {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Date getDateTimeField() {
-        return postedAt;
-    }
-
-    public void setDateTimeField(Date postedAt) {
-        this.postedAt = postedAt;
     }
 }
