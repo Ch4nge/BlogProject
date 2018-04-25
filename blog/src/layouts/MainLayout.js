@@ -105,7 +105,7 @@ export default class MainLayout extends Component {
                 </div>
 
                 <div className="footer">
-                    <h2>Footer</h2>
+                    <p className="text-white">example@gmail.com</p>
                 </div>
             </div>
         );
