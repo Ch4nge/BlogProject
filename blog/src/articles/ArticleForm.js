@@ -20,28 +20,30 @@ export default class ArticleForm extends Component {
 
   postArticle(event) {
 
-    fetch("http://localhost:8080/blogs", {
-      body: JSON.stringify({
-        post:{
-          title: this.state.title, 
-          description: this.state.description, 
-          content: this.state.content
-        },
-        tags: this.state.tags
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST"
-    })
-    .then((res) => console.log(res))
-    .then((res) => console.log(res));
-    //event.preventDefault();
-    /*this.refs.title.value="";
-    this.refs.description.value="";
-    this.refs.content.value="";*/
-      
-  }
+
+        fetch("http://localhost:8080/blogs", {
+            body: JSON.stringify({
+                post:{
+                    title: this.state.title, 
+                    description: this.state.description, 
+                    content: this.state.content
+                },
+                tags: this.state.tags,
+                userdata: this.props.userdata
+            }),
+            headers: {
+              "Content-Type": "application/json"
+            },
+            method: "POST"
+          })
+          .then((res) => console.log(res))
+          .then((res) => console.log(res));
+        //event.preventDefault();
+        /*this.refs.title.value="";
+        this.refs.description.value="";
+        this.refs.content.value="";*/
+        
+    }
 
   addTag(event, text){
     event.preventDefault();

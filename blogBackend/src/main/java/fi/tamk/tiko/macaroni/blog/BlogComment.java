@@ -43,6 +43,10 @@ public class BlogComment {
         }
     }
 
+    public void deleteBlogLikes(){
+        this.blogLikes.clear();
+    }
+
     public String getUserName() {
         return userName;
     }

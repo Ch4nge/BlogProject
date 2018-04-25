@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import Article from './Article';
 import LimitedInfiniteScroll from 'react-limited-infinite-scroll';
 import contains from 'string-contains';
-import {Router} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 
-export default class ArticlesWrapper extends Component {
+export default class ArticleSearchWrapper extends Component {
 
     constructor(props){
         super(props);
@@ -22,7 +22,7 @@ export default class ArticlesWrapper extends Component {
     }
 
     componentWillMount(){
-        fetch('http://127.0.0.1:8080/blogs')
+        fetch('http://127.0.0.1:8080/blogs/tags/'+this.props.match.params.tagName)
             .then(response => response.json())
             .then(response => this.setState({
                 articles: response,
@@ -75,7 +75,8 @@ export default class ArticlesWrapper extends Component {
             className="searchBar"
             placeholder="&#xF002; Search.."
             onChange={this.handleChange}/>
-
+            <Link to="/"><button className="toHomeBtn">Back to home</button></Link>
+            <h2>{"Searching for TAG: ["+this.props.match.params.tagName+"]"}</h2>
             <LimitedInfiniteScroll 
                 limit={1} 
                 hasMore={articleList.length < this.state.articles.length}

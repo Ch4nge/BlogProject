@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.transaction.Transactional;
+import java.util.*;
 
 @RestController
 public class BlogRestInterface {
@@ -35,19 +35,28 @@ public class BlogRestInterface {
     @RequestMapping(value = "/blogs", method= RequestMethod.POST)
     public ResponseEntity<Void> addBlogPost(
             @RequestBody BlogPostRequestWrapper wrapper, UriComponentsBuilder builder){
-        for(BlogTag tag : wrapper.getTags()){
-            if(tagRepository.findBlogTagByTitle(tag.getTitle()) == null){
-                tagRepository.save(tag);
-            }
-            wrapper.getPost().getTags().add(tagRepository.findBlogTagByTitle(tag.getTitle()));
-        }
-
-        postRepository.save(wrapper.getPost());
 
         UriComponents uriComponents =
                 builder.path("blogs/{id}").buildAndExpand(wrapper.getPost().getId());
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uriComponents.toUri());
+
+        Member member = memberRepository.findByUsernameAndPassword(wrapper.getUserdata().getUsername(),
+                wrapper.getUserdata().getPassword());
+        System.out.println(member.getRole());
+        //Only let post, if user is admin
+        if(member.getRole().equals("admin")){
+            for (BlogTag tag : wrapper.getTags()) {
+                if (tagRepository.findBlogTagByTitle(tag.getTitle()) == null) {
+                    tagRepository.save(tag);
+                }
+                wrapper.getPost().getTags().add(tagRepository.findBlogTagByTitle(tag.getTitle()));
+            }
+
+            postRepository.save(wrapper.getPost());
+        }else{
+            return new ResponseEntity<Void>(headers, HttpStatus.UNAUTHORIZED);
+        }
 
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
@@ -56,6 +65,14 @@ public class BlogRestInterface {
     @RequestMapping(value = "/blogs", method = RequestMethod.GET)
     public Iterable<BlogPost> getBlogs(){
         return postRepository.findAll();
+    }
+    @CrossOrigin
+    @RequestMapping(value = "/blogs/tags/{tag}", method = RequestMethod.GET)
+    public Iterable<BlogPost> getBlogsByTag(@PathVariable String tag){
+        BlogTag blogTag = tagRepository.findBlogTagByTitle(tag);
+        HashSet<BlogTag> tagList = new HashSet<BlogTag>();
+        tagList.add(blogTag);
+        return postRepository.findByTagsIn(tagList);
     }
 
     @CrossOrigin
@@ -98,11 +115,22 @@ public class BlogRestInterface {
         return commentRepository.findByBlogpostid(blogID);
     }
 
-    /*@CrossOrigin
-    @RequestMapping(value = "/blogs/blogID/comments/{commentID}", method = RequestMethod.DELETE)
-    public void deleteBlogComment(@PathVariable long commentID){
-        postRepository.deleteById(commentID);
-    }*/
+    @CrossOrigin
+    @Transactional
+    @RequestMapping(value = "/blogs/{blogID}/comments/{commentID}", method = RequestMethod.DELETE)
+    public void deleteBlogComment(@RequestBody LoginAttempt userdata,
+                                  @PathVariable long blogID,
+                                  @PathVariable long commentID
+                                  ){
+
+        Member member = memberRepository.findByUsernameAndPassword(userdata.getUsername(), userdata.getPassword());
+
+        if(member.getRole().equals("admin")) {
+            BlogComment comment = commentRepository.findById(commentID).orElse(null);
+            likeRepository.removeBlogLikeByBlogComment(comment);
+            commentRepository.deleteById(commentID);
+        }
+    }
 
     //BLOG COMMENT LIKE
     @CrossOrigin

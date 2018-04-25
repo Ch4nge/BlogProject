@@ -17,6 +17,7 @@ export default class FullArticle extends Component {
             comments: []
         }
         this.fetchPosts = this.fetchPosts.bind(this);
+        this.deleteComment = this.deleteComment.bind(this);
     }
     
     componentWillMount(){
@@ -25,23 +26,41 @@ export default class FullArticle extends Component {
             .then(response => {
                 this.setState({
                     article: response,
-                    comments: []
                 });
+                this.fetchPosts();
             });
-        this.fetchPosts();
     }
     
     fetchPosts(){
+        console.log("HELLO");
         fetch('http://127.0.0.1:8080/blogs/'+this.props.match.params.postID+"/comments")
         .then(response => response.json())
         .then(response => {
+            console.log(response);
             this.setState({
                 comments: response
             });
         });
     }
+    deleteComment(event, blogID){
+        event.preventDefault();
+        console.log(this.props.userdata);
+        fetch("http://127.0.0.1:8080/blogs/"+this.props.match.params.postID+"/comments/"+blogID, {
+            body: JSON.stringify({
+                username: this.props.userdata.username,
+                password: this.props.userdata.password
+            }),
+            headers: {
+                "Content-Type": "application/json"
+              },
+            method: "DELETE"
+        }).then( (res) => {
+            this.fetchPosts();
+        })
+    }
 
     render(){
+        console.log(this.props.userdata);
         let comments = this.state.comments;
         console.log(comments);
         console.log(this.props.userdata)
@@ -65,6 +84,7 @@ export default class FullArticle extends Component {
                         <div>
                         <Comment key={comment.id} comment={comment} blogID ={this.props.match.params.postID}/>
                         <Like commentId={comment.id} blogID ={this.props.match.params.postID} userdata={this.props.userdata}/>
+                        <button onClick={(event) => this.deleteComment(event, comment.id)}>Delete</button>
                         </div>
                     )
                     })}

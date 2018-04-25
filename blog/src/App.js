@@ -4,7 +4,7 @@ import ArticlesWrapper from './articles/ArticlesWrapper';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import FullArticle from './articles/FullArticle';
 import ArticleForm from './articles/ArticleForm';
-
+import ArticleSearchWrapper from './articles/ArticleSearchWrapper';
 
 class App extends Component {
 
@@ -14,6 +14,7 @@ class App extends Component {
     this.state = {
       userdata: {
         username: "",
+        password: "",
         role: "",
         password: "",
         loggedIn: false
@@ -24,6 +25,20 @@ class App extends Component {
     this.logOut = this.logOut.bind(this);
     this.signUp = this.signUp.bind(this);
   }
+
+  componentWillMount() {
+    
+    let storage = window.localStorage;
+    this.setState({
+      userdata: {
+        loggedIn: storage.getItem('loggedIn') === 'true',
+        username: storage.getItem('username'),
+        password: storage.getItem('password'),
+        role: storage.getItem('role')
+      }
+    });
+  }
+
 
   login(data){
     fetch("http://localhost:8080/users/login", {
@@ -44,10 +59,19 @@ class App extends Component {
     })
     .then((res) =>{
       if(res !== undefined){
+        let storage = window.localStorage;
+        storage.setItem('loggedIn', "true");
+        storage.setItem('username', res.username);
+        storage.setItem('password', res.password);
+        storage.setItem('role', res.role);
+
+        console.log("Hello");
+
         this.setState({
           userdata: {
             userId: res.id,
             username: res.username,
+            password: res.password,
             role: res.role,
             password: res.password,
             loggedIn: true
@@ -59,10 +83,13 @@ class App extends Component {
 
   logOut(event){
       event.preventDefault();
+      let storage = window.localStorage;
+      storage.clear();
       this.setState({
           userdata: {
             username: "",
             role: "",
+            password: "",
             loggedIn: false
           },
           redirect: false
@@ -74,7 +101,7 @@ class App extends Component {
         body: JSON.stringify({
             username: data.username,
             password: data.password,
-            role: data.role
+            role: "admin"
         }),
         headers: {
           "Content-Type": "application/json"
@@ -105,11 +132,16 @@ class App extends Component {
       <div className="App">
         {this.redirect()}
         <Switch>
-          <Route exact={true} path="/" component={() => 
-            <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} content={<ArticlesWrapper />} />} />
+          <Route exact={true} path="/" component={(props) => 
+            <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} 
+            content={<ArticlesWrapper {...props}/>} />} />
           <Route path={"/post/:postID"} render={(props) => 
             <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} content={
             <FullArticle userdata = {this.state.userdata} {...props} />} /> } />
+          <Route path={"/tags/:tagName"} render={(props) => 
+          <MainLayout login={this.login} logOut={this.logOut} signUp={this.signUp} userdata={this.state.userdata} content={
+            <ArticleSearchWrapper {...props} />
+          }/>} />
         </Switch>
       </div>
     );

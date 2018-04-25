@@ -23,6 +23,11 @@ export default class MainLayout extends Component {
         this.signUpTrigger = this.signUpTrigger.bind(this);        
     }
 
+    renderPostBtn(){
+        if(this.props.userdata.role === "admin")
+            return <Link to="/articleForm"><a className="signUpBtn2" id="adminBtn">Add Article</a> </Link>;
+    }
+
     renderLogin(){
         if(this.state.showSignUp){
             return(
