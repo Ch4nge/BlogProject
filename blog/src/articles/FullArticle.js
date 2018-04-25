@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Comment from '../comments/Comment';
 import CommentForm from '../comments/CommentForm';
-import Like from "../comments/Like"
+import Like from "../comments/Like";
+import {Redirect} from 'react-router-dom';
 
 export default class FullArticle extends Component {
 
@@ -14,11 +15,13 @@ export default class FullArticle extends Component {
                 description: "",
                 content: ""
             },
-            comments: []
+            comments: [],
+            deleted: false
         }
         this.fetchPosts = this.fetchPosts.bind(this);
         this.deleteComment = this.deleteComment.bind(this);
         this.checkRole = this.checkRole.bind(this);
+        this.removeArticle = this.removeArticle.bind(this);
     }
     
     componentWillMount(){
@@ -43,10 +46,10 @@ export default class FullArticle extends Component {
             });
         });
     }
-    deleteComment(event, blogID){
+    deleteComment(event, commentID){
         event.preventDefault();
         console.log(this.props.userdata);
-        fetch("http://127.0.0.1:8080/blogs/"+this.props.match.params.postID+"/comments/"+blogID, {
+        fetch("http://127.0.0.1:8080/blogs/"+this.props.match.params.postID+"/comments/"+commentID, {
             body: JSON.stringify({
                 username: this.props.userdata.username,
                 password: this.props.userdata.password
@@ -58,6 +61,11 @@ export default class FullArticle extends Component {
         }).then( (res) => {
             this.fetchPosts();
         })
+    }
+
+    redirect(){
+        if(this.state.deleted)
+            return <Redirect to="/" />;
     }
 
     checkRole(comment) {
@@ -73,6 +81,31 @@ export default class FullArticle extends Component {
 
     }
 
+    removeArticle(){
+        fetch("http://127.0.0.1:8080/blogs/"+this.props.match.params.postID, {
+            body: JSON.stringify({
+                username: this.props.userdata.username,
+                password: this.props.userdata.password
+            }),
+            headers: {
+                "Content-Type": "application/json"
+              },
+            method: "DELETE"
+        }).then( (res) => {
+            this.setState({
+                deleted: true
+            })
+        })
+    }
+
+    
+
+    renderRemoveArticle(){
+        if(this.props.userdata.role === "admin") {
+            return <button onClick={this.removeArticle} className="btn btn-warning">Delete article</button>
+        }
+    }
+
     render(){
         console.log(this.props.userdata);
         let comments = this.state.comments;
@@ -80,7 +113,7 @@ export default class FullArticle extends Component {
         console.log(this.props.userdata)
         return(
             <div className="card">
-            
+            {this.redirect()}
             <div className="articleCard">
                 <div className="imgContainer">
                     <img className="titleImg" src={this.state.article.image_url} />
@@ -93,6 +126,7 @@ export default class FullArticle extends Component {
                             {this.state.article.content}
                         </p>
                     </div>
+                    {this.renderRemoveArticle()}
                 </div>    
             </div>
             

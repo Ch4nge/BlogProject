@@ -43,7 +43,6 @@ public class BlogRestInterface {
 
         Member member = memberRepository.findByUsernameAndPassword(wrapper.getUserdata().getUsername(),
                 wrapper.getUserdata().getPassword());
-        System.out.println(member.getRole());
         //Only let post, if user is admin
         if(member.getRole().equals("admin")){
             for (BlogTag tag : wrapper.getTags()) {
@@ -84,8 +83,12 @@ public class BlogRestInterface {
 
     @CrossOrigin
     @RequestMapping(value = "/blogs/{blogID}", method = RequestMethod.DELETE)
-    public void deleteBlogPost(@PathVariable long blogID){
-        postRepository.deleteById(blogID);
+    public void deleteBlogPost(@RequestBody LoginAttempt userdata, @PathVariable long blogID){
+        Member member = memberRepository.findByUsernameAndPassword(userdata.getUsername(), userdata.getPassword());
+
+        if(member.getRole().equals("admin")) {
+            postRepository.deleteById(blogID);
+        }
     }
 
     //COMMENTS
@@ -188,13 +191,6 @@ public class BlogRestInterface {
     }
 
 
-    //USERS
-    @CrossOrigin
-    @RequestMapping(value = "/users")
-    public Iterable<Member> getMembers(){
-        return memberRepository.findAll();
-    }
-
     @CrossOrigin
     @RequestMapping(value = "/users", method= RequestMethod.POST)
     public ResponseEntity<Void> addMember(@RequestBody Member member, UriComponentsBuilder builder){
@@ -208,18 +204,18 @@ public class BlogRestInterface {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
-    @CrossOrigin
+    /*@CrossOrigin
     @RequestMapping(value = "/users/{memberID}", method = RequestMethod.GET)
     public Member getMember(@PathVariable long memberID){
         Member member = memberRepository.findById(memberID).orElse(null);
         return member;
-    }
+    }*/
 
-    @CrossOrigin
+    /*@CrossOrigin
     @RequestMapping(value = "/users/{memberID}", method = RequestMethod.DELETE)
     public void deleteMember(@PathVariable long memberID){
         memberRepository.deleteById(memberID);
-    }
+    }*/
 
     @CrossOrigin
     @RequestMapping(value = "/users/login", method = RequestMethod.POST)
