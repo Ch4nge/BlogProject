@@ -103,7 +103,7 @@ class App extends Component {
         body: JSON.stringify({
             username: data.username,
             password: data.password,
-            role: "admin"
+            role: "user"
         }),
         headers: {
           "Content-Type": "application/json"
