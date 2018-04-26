@@ -1,0 +1,14 @@
+fi\tamk\tiko\macaroni\blog\BlogLikeRepository.class
+fi\tamk\tiko\macaroni\blog\Member.class
+fi\tamk\tiko\macaroni\blog\BlogPostRepository.class
+fi\tamk\tiko\macaroni\blog\BlogApplication.class
+fi\tamk\tiko\macaroni\blog\BlogCommentRepository.class
+fi\tamk\tiko\macaroni\blog\BlogPostRequestWrapper.class
+fi\tamk\tiko\macaroni\blog\BlogLike.class
+fi\tamk\tiko\macaroni\blog\BlogTag.class
+fi\tamk\tiko\macaroni\blog\BlogComment.class
+fi\tamk\tiko\macaroni\blog\LoginAttempt.class
+fi\tamk\tiko\macaroni\blog\BlogTagRepository.class
+fi\tamk\tiko\macaroni\blog\MemberRepository.class
+fi\tamk\tiko\macaroni\blog\BlogRestInterface.class
+fi\tamk\tiko\macaroni\blog\BlogPost.class
